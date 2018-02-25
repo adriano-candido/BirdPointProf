@@ -13,9 +13,11 @@ import birdpoint.registro.ponto.PontoDAO;
 import birdpoint.registro.ponto.PontoTableModelRegistro;
 import birdpoint.util.LeitorBiometrico;
 import birdpoint.util.Relogio;
+import birdpoint.util.Util;
 import com.digitalpersona.onetouch.DPFPGlobal;
 import com.digitalpersona.onetouch.DPFPTemplate;
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,7 +67,11 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         new Thread() {
             @Override
             public void run() {
-                compararDigital();
+                try {
+                    compararDigital();
+                } catch (ParseException ex) {
+                    Logger.getLogger(CadastroPontoEletronico.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }.start();
 
@@ -79,7 +85,7 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
 //                            if (hora == 23) {
 //                                System.exit(0);
 //                            }
-                            sleep(900000);
+                        sleep(900000);
                     }
                 } catch (InterruptedException ex) {
                     Logger.getLogger(CadastroPontoEletronico.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,7 +94,6 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         }.start();
 
     }
-
 
     public void atualizarTabela() {
         PontoTableModelRegistro modeloTabela = new PontoTableModelRegistro(listaPontoTabela);
@@ -109,7 +114,7 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
     }
 
     // Este método registrará o ponto do funcionario
-    public void registrarPresentePonto(Funcionario funcionario) {
+    public void registrarPresentePonto(Funcionario funcionario) throws ParseException {
         apagarDuplicidadePonto(funcionario);
         ponto = new Ponto();
         List<Ponto> listaPontosFuncionario = pontoDAO.checkExistsPontoFuncionario("dataPonto", formatarData.format(dataHoraSistema),
@@ -122,9 +127,12 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
                 ponto.setHoraEntradaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
             } else if (ponto.getHoraEntradaPonto() != null && ponto.getHoraSaidaPonto() == null) {
                 ponto.setHoraSaidaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
+                Date dataNova = formatarHoraCompleta.parse(Util.diferencaEntreHoras(String.valueOf(ponto.getHoraEntradaPonto()), String.valueOf(ponto.getHoraSaidaPonto())));
+                ponto.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(dataNova)));
             } else {
                 ponto.setHoraEntradaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
                 ponto.setHoraSaidaPonto(null);
+                ponto.setQtdHorasTrabalhadas(null);
             }
             listaPontoTabela.add(0, ponto);
             atualizarTabela();
@@ -153,7 +161,7 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         } else {
             entradaOuSaida = "Saída";
         }
-        new MensagemPonto(null, true, ponto.getFuncionario(), entradaOuSaida, carregarTurno()).setVisible(true);
+        new MensagemPonto(null, true, ponto.getFuncionario(), entradaOuSaida, carregarTurno(), String.valueOf(ponto.getQtdHorasTrabalhadas())).setVisible(true);
     }
 
 // Este método retorna o turno baseado no horário atual
@@ -161,7 +169,7 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         dataHoraSistema = new Date();
         int hora = Integer.parseInt(formatarHora.format(dataHoraSistema));
         int minuto = Integer.parseInt(formatarMinuto.format(dataHoraSistema));
-        if ((hora >= 5 && (hora <= 12 )) || ((hora == 12) && minuto <= 59)) {
+        if ((hora >= 5 && (hora <= 12)) || ((hora == 12) && minuto <= 59)) {
             return "Manhã";
         } else if ((hora >= 13 && hora < 18) || ((hora == 17) && minuto <= 59)) {
             return "Tarde";
@@ -169,7 +177,6 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
             return "Noite";
         }
     }
-
 
     public void cadastrarPontoDiario() {
         dataHoraSistema = new Date();
@@ -202,8 +209,6 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         }
     }
 
-
-
     public Funcionario carregarFuncionario(int id) {
         for (Funcionario funcionario : listaFuncionarioes) {
             if (funcionario.getIdFuncionario() == id) {
@@ -213,7 +218,6 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         return null;
     }
 
-
     public void mostrarHora() {
         Relogio ah = new Relogio(tfHora);
         ah.mostrarData(true);
@@ -222,11 +226,11 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
     }
 
     private void telaMensagemPonto(Funcionario funcionario, String verificarEntradaOuSaida) {
-        new MensagemPonto(null, rootPaneCheckingEnabled, funcionario, verificarEntradaOuSaida, carregarTurno()).setVisible(true);
+        new MensagemPonto(null, rootPaneCheckingEnabled, funcionario, verificarEntradaOuSaida, carregarTurno(), "").setVisible(true);
     }
 
     // Este método compara a digital inserida no leitor
-    private void compararDigital() {
+    private void compararDigital() throws ParseException {
         funcionario = new Funcionario();
         funcionario = digital.verificarSeCadastrado(null, listaFuncionarioes);
         if (funcionario != null) {

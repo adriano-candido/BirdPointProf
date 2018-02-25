@@ -29,10 +29,10 @@ public class Funcionario {
 
     @Column(length = 100)
     private String ruaFuncionario;
-    
+
     @Column(length = 100, nullable = false)
     private String cpfFuncionario;
-    
+
     @Column(length = 100)
     private String RGFuncionario;
 
@@ -44,7 +44,7 @@ public class Funcionario {
 
     @Column(length = 100)
     private String emailFuncionario;
-    
+
     @Column
     private boolean receberEmail;
 
@@ -53,40 +53,39 @@ public class Funcionario {
 
     @Column(length = 100)
     private int numeroCasa;
-    
+
     @Column(length = 100)
     private String cidadeFuncionario;
-    
+
     @Column
     @Lob
     private byte[] digitalDireita;
-    
+
     @Column
     @Lob
     private byte[] digitalEsquerda;
-    
+
     @Column
     @Lob
-    private byte[] fotoProf;
-    
-     @Override
+    private byte[] fotoFunc;
+
+    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + this.idFuncionario;
-        hash = 67 * hash + Objects.hashCode(this.nomeFuncionario);
-        hash = 67 * hash + Objects.hashCode(this.ruaFuncionario);
-        hash = 67 * hash + Objects.hashCode(this.cpfFuncionario);
-        hash = 67 * hash + Objects.hashCode(this.RGFuncionario);
-        hash = 67 * hash + Objects.hashCode(this.bairroFuncionario);
-        hash = 67 * hash + Objects.hashCode(this.telefoneFuncionario);
-        hash = 67 * hash + Objects.hashCode(this.emailFuncionario);
-        hash = 67 * hash + (this.receberEmail ? 1 : 0);
-        hash = 67 * hash + (this.situacaoFuncionario ? 1 : 0);
-        hash = 67 * hash + this.numeroCasa;
-        hash = 67 * hash + Objects.hashCode(this.cidadeFuncionario);
-        hash = 67 * hash + Arrays.hashCode(this.digitalDireita);
-        hash = 67 * hash + Arrays.hashCode(this.digitalEsquerda);
-        hash = 67 * hash + Arrays.hashCode(this.fotoProf);
+        hash = 67 * hash + this.getIdFuncionario();
+        hash = 67 * hash + Objects.hashCode(this.getNomeFuncionario());
+        hash = 67 * hash + Objects.hashCode(this.getRuaFuncionario());
+        hash = 67 * hash + Objects.hashCode(this.getCpfFuncionario());
+        hash = 67 * hash + Objects.hashCode(this.getRGFuncionario());
+        hash = 67 * hash + Objects.hashCode(this.getBairroFuncionario());
+        hash = 67 * hash + Objects.hashCode(this.getTelefoneFuncionario());
+        hash = 67 * hash + Objects.hashCode(this.getEmailFuncionario());
+        hash = 67 * hash + (this.isReceberEmail() ? 1 : 0);
+        hash = 67 * hash + (this.isSituacaoFuncionario() ? 1 : 0);
+        hash = 67 * hash + this.getNumeroCasa();
+        hash = 67 * hash + Objects.hashCode(this.getCidadeFuncionario());
+        hash = 67 * hash + Arrays.hashCode(this.getDigitalDireita());
+        hash = 67 * hash + Arrays.hashCode(this.getDigitalEsquerda());
         return hash;
     }
 
@@ -102,16 +101,16 @@ public class Funcionario {
             return false;
         }
         final Funcionario other = (Funcionario) obj;
-        if (this.idFuncionario != other.idFuncionario) {
+        if (this.getIdFuncionario() != other.getIdFuncionario()) {
             return false;
         }
-        if (this.receberEmail != other.receberEmail) {
+        if (this.isReceberEmail() != other.isReceberEmail()) {
             return false;
         }
-        if (this.situacaoFuncionario != other.situacaoFuncionario) {
+        if (this.isSituacaoFuncionario() != other.isSituacaoFuncionario()) {
             return false;
         }
-        if (this.numeroCasa != other.numeroCasa) {
+        if (this.getNumeroCasa() != other.getNumeroCasa()) {
             return false;
         }
         if (!Objects.equals(this.nomeFuncionario, other.nomeFuncionario)) {
@@ -142,9 +141,6 @@ public class Funcionario {
             return false;
         }
         if (!Arrays.equals(this.digitalEsquerda, other.digitalEsquerda)) {
-            return false;
-        }
-        if (!Arrays.equals(this.fotoProf, other.fotoProf)) {
             return false;
         }
         return true;
@@ -290,7 +286,6 @@ public class Funcionario {
         this.numeroCasa = numeroCasa;
     }
 
-
     /**
      * @return the cidadeFuncionario
      */
@@ -316,7 +311,7 @@ public class Funcionario {
      * @param digitalDireita the digitalDireita to set
      */
     public void setDigitalDireita(byte[] digitalDireita) {
-        this.digitalDireita = digitalDireita;
+        this.setDigitalDireita(digitalDireita);
     }
 
     /**
@@ -330,21 +325,7 @@ public class Funcionario {
      * @param digitalEsquerda the digitalEsquerda to set
      */
     public void setDigitalEsquerda(byte[] digitalEsquerda) {
-        this.digitalEsquerda = digitalEsquerda;
-    }
-
-    /**
-     * @return the fotoProf
-     */
-    public byte[] getFotoProf() {
-        return fotoProf;
-    }
-
-    /**
-     * @param fotoProf the fotoProf to set
-     */
-    public void setFotoProf(byte[] fotoProf) {
-        this.fotoProf = fotoProf;
+        this.setDigitalEsquerda(digitalEsquerda);
     }
 
     /**
@@ -361,5 +342,18 @@ public class Funcionario {
         this.receberEmail = receberEmail;
     }
 
+    /**
+     * @return the fotoFunc
+     */
+    public byte[] getFotoFunc() {
+        return fotoFunc;
+    }
+
+    /**
+     * @param fotoFunc the fotoFunc to set
+     */
+    public void setFotoFunc(byte[] fotoFunc) {
+        this.fotoFunc = fotoFunc;
+    }
 
 }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioPontoEletronico" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7af6b275-8a23-4059-bb79-71ab4eddca77">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
-	<property name="com.jaspersoft.studio.data.sql.tables" value="cG9udG8gLDE1NCwxNSwwZmVlYWQyNy1iZTU4LTQzMWQtOTk2NS1kZjhkYzQ2NzBhYzQ7cHJvZmVz&#xA;c29yICwxNSwxNSw2MWFjYWQ1MC0yYzI5LTQ1Y2UtYmIwNC1jMTdiMmM3ZTc4ZDE7"/><subDataset name="dataset1" uuid="0967c58a-bb40-496d-9474-f29fc4086914"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="cG9udG8gLDE1NCwxNSwwZmVlYWQyNy1iZTU4LTQzMWQtOTk2NS1kZjhkYzQ2NzBhYzQ7cHJvZmVz&#xA;c29yICwxNSwxNSw2MWFjYWQ1MC0yYzI5LTQ1Y2UtYmIwNC1jMTdiMmM3ZTc4ZDE7"/>
+	<subDataset name="dataset1" uuid="0967c58a-bb40-496d-9474-f29fc4086914"/>
 	<subDataset name="dataset2" uuid="03709086-e9d3-4543-8c83-5250e170f64b"/>
 	<subDataset name="dataset3" uuid="d2425392-aeae-4765-8953-0b6a147cde4e"/>
 	<subDataset name="dataset4" uuid="b11b49ff-27b6-4730-8bf6-8bc3f9f02144"/>
@@ -13,27 +14,26 @@
 	<parameter name="novoTexto" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT *
-FROM professor professor
+FROM funcionario funcionario
 	INNER JOIN ponto ponto ON 
-	 professor.`idProfessor` = ponto.`professor_idProfessor` 
+	 funcionario.`idFuncionario` = ponto.`funcionario_idFuncionario` 
 WHERE 
 	 $P!{texto}]]>
 	</queryString>
-	<field name="idProfessor" class="java.lang.Integer"/>
-	<field name="RGProfessor" class="java.lang.String"/>
-	<field name="bairroProfessor" class="java.lang.String"/>
-	<field name="cidadeProfessor" class="java.lang.String"/>
-	<field name="cpfProfessor" class="java.lang.String"/>
+	<field name="idFuncionario" class="java.lang.Integer"/>
+	<field name="RGFuncionario" class="java.lang.String"/>
+	<field name="bairroFuncionario" class="java.lang.String"/>
+	<field name="cidadeFuncionario" class="java.lang.String"/>
+	<field name="cpfFuncionario" class="java.lang.String"/>
 	<field name="digitalDireita" class="java.lang.Object"/>
 	<field name="digitalEsquerda" class="java.lang.Object"/>
-	<field name="emailProfessor" class="java.lang.String"/>
-	<field name="fotoProf" class="java.awt.Image"/>
-	<field name="nomeProfessor" class="java.lang.String"/>
+	<field name="emailFuncionario" class="java.lang.String"/>
+	<field name="fotoFunc" class="java.awt.Image"/>
+	<field name="nomeFuncionario" class="java.lang.String"/>
 	<field name="numeroCasa" class="java.lang.Integer"/>
-	<field name="ruaProfessor" class="java.lang.String"/>
-	<field name="situacaoProfessor" class="java.lang.Boolean"/>
-	<field name="telefoneProfessor" class="java.lang.String"/>
-	<field name="titulacaoProfessor" class="java.lang.String"/>
+	<field name="ruaFuncionario" class="java.lang.String"/>
+	<field name="situacaoFuncionario" class="java.lang.Boolean"/>
+	<field name="telefoneFuncionario" class="java.lang.String"/>
 	<field name="receberEmail" class="java.lang.Boolean"/>
 	<field name="idPonto" class="java.lang.Integer"/>
 	<field name="atestadoPonto" class="java.lang.Boolean"/>
@@ -43,15 +43,14 @@ WHERE
 	<field name="horaEntradaPonto" class="java.sql.Time"/>
 	<field name="horaSaidaPonto" class="java.sql.Time"/>
 	<field name="turnoPonto" class="java.lang.String"/>
-	<field name="anoExercicio_idAnoExercicio" class="java.lang.Integer"/>
-	<field name="professor_idProfessor" class="java.lang.Integer"/>
+	<field name="funcionario_idFuncionario" class="java.lang.Integer"/>
 	<field name="justificativaPonto" class="java.lang.String"/>
 	<field name="dataPontoCompleta" class="java.sql.Timestamp"/>
 	<variable name="soma" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[]]></variableExpression>
 	</variable>
 	<group name="idLote">
-		<groupExpression><![CDATA[$F{nomeProfessor}]]></groupExpression>
+		<groupExpression><![CDATA[$F{nomeFuncionario}]]></groupExpression>
 		<groupHeader>
 			<band height="107">
 				<elementGroup/>
@@ -59,15 +58,15 @@ WHERE
 					<reportElement x="21" y="7" width="550" height="1" uuid="1d3588f1-d569-4b2c-9c24-6439eddacc48"/>
 				</rectangle>
 				<staticText>
-					<reportElement mode="Opaque" x="103" y="12" width="110" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="e917cace-6095-44e9-9efb-1188d5598bbe"/>
+					<reportElement mode="Opaque" x="103" y="12" width="123" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="e917cace-6095-44e9-9efb-1188d5598bbe"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="16" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Professor(a).:]]></text>
+					<text><![CDATA[Funcionário(a).:]]></text>
 				</staticText>
 				<image>
 					<reportElement x="10" y="16" width="80" height="80" uuid="73e9fbbc-ff1f-4dcf-80bb-cfa99da38976"/>
-					<imageExpression><![CDATA[$F{fotoProf}]]></imageExpression>
+					<imageExpression><![CDATA[$F{fotoFunc}]]></imageExpression>
 				</image>
 				<staticText>
 					<reportElement x="95" y="82" width="65" height="20" uuid="43173983-404c-49f2-9b22-61dcac92c83b">
@@ -102,7 +101,7 @@ WHERE
 					<text><![CDATA[Dia]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="105" y="40" width="110" height="28" forecolor="#000000" backcolor="#FFFFFF" uuid="768acdee-1e41-446f-8d4f-31e7a5c61262"/>
+					<reportElement mode="Opaque" x="105" y="40" width="121" height="28" forecolor="#000000" backcolor="#FFFFFF" uuid="768acdee-1e41-446f-8d4f-31e7a5c61262"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="16" isBold="true"/>
 					</textElement>
@@ -123,18 +122,18 @@ WHERE
 					<text><![CDATA[Turno]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="218" y="11" width="336" height="26" forecolor="#006699" uuid="548dbbe7-6fc7-4438-b762-63cc720bcfd2"/>
+					<reportElement x="230" y="11" width="324" height="26" forecolor="#006699" uuid="548dbbe7-6fc7-4438-b762-63cc720bcfd2"/>
 					<textElement>
 						<font size="16" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{nomeProfessor}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{nomeFuncionario}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="219" y="41" width="336" height="26" forecolor="#006699" uuid="7ee9497b-d910-4f76-94aa-2581c1c4341f"/>
+					<reportElement x="230" y="41" width="325" height="26" forecolor="#006699" uuid="7ee9497b-d910-4f76-94aa-2581c1c4341f"/>
 					<textElement>
 						<font size="16" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{emailProfessor}.equals("") ? "Não cadastrado" : $F{emailProfessor}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{emailFuncionario}.equals("") ? "Não cadastrado" : $F{emailFuncionario}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -168,7 +167,7 @@ WHERE
 					<textElement>
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Fábrica de Software - Digy Arretados]]></text>
+					<text><![CDATA[Fábrica de Software - Bird Arretados]]></text>
 				</staticText>
 				<image>
 					<reportElement x="40" y="9" width="90" height="71" uuid="2bfa5707-2bde-4d99-a705-5cf702f9342c"/>

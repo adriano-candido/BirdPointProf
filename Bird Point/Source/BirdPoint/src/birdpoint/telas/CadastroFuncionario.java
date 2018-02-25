@@ -63,7 +63,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
                 ImageIcon foto = new ImageIcon();
                 foto.setImage(aux);
                 btFoto.setIcon(foto);
-                funcionario.setFotoProf(Util.imageToByte(aux));
+                funcionario.setFotoFunc(Util.imageToByte(aux));
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, "Não foi possível carregar essa imagem",
@@ -432,7 +432,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
             tfNumero.setText(String.valueOf(funcionario.getNumeroCasa()));
             try {
                 ImageIcon foto = new ImageIcon();
-                foto.setImage(Util.byteToImage(funcionario.getFotoProf()));
+                foto.setImage(Util.byteToImage(funcionario.getFotoFunc()));
                 btFoto.setIcon(foto);
             } catch (Exception e) {
             }

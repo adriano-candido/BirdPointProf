@@ -23,16 +23,18 @@ public class MensagemPonto extends javax.swing.JDialog {
 
     Funcionario funcionario = new Funcionario();
     String entradaOuSaida;
-    
+    String horasTrab;
+
     String turno;
 
-    public MensagemPonto(java.awt.Frame parent, boolean modal, Funcionario funcionario, String entradaOuSaida, String turno) {
+    public MensagemPonto(java.awt.Frame parent, boolean modal, Funcionario funcionario, String entradaOuSaida, String turno, String horasTrab) {
         super(parent, modal);
         initComponents();
         tfNomeFuncionario.setText(funcionario.getNomeFuncionario());
         this.funcionario = funcionario;
         this.entradaOuSaida = entradaOuSaida;
         this.turno = turno;
+        this.horasTrab = horasTrab;
         preencherTextoTela();
         carregarFoto();
         mostrarHora();
@@ -60,12 +62,13 @@ public class MensagemPonto extends javax.swing.JDialog {
             tfMensagem1.setText("Seja Bem Vindo(a) .:");
             tfMensagem2.setText("Lhe desejamos um ótimo trabalho.");
             tfMensagem3.setText("Entrada");
-            tfTurno.setText("Turno.: "+turno);
+            tfTurno.setText("Turno.: " + turno);
         } else {
             tfMensagem1.setText("Até Logo .:");
             tfMensagem2.setText("Agradecemos sua presença.");
             tfMensagem3.setText("Saída");
-            tfTurno.setText("Turno.: "+turno);
+            tfTurno.setText("Turno.: " + turno);
+            tfHorasTrab.setText("Horas Trab:. " + horasTrab);
         }
     }
 
@@ -79,7 +82,7 @@ public class MensagemPonto extends javax.swing.JDialog {
     private void carregarFoto() {
         try {
             ImageIcon foto = new ImageIcon();
-            foto.setImage(Util.byteToImage(funcionario.getFotoProf()));
+            foto.setImage(Util.byteToImage(funcionario.getFotoFunc()));
             btFoto.setIcon(foto);
         } catch (Exception e) {
         }
@@ -103,6 +106,7 @@ public class MensagemPonto extends javax.swing.JDialog {
         tfMensagem1 = new javax.swing.JLabel();
         tfHora1 = new javax.swing.JLabel();
         tfTempo = new javax.swing.JLabel();
+        tfHorasTrab = new javax.swing.JLabel();
         tfMensagem3 = new javax.swing.JLabel();
         tfTurno = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -161,6 +165,10 @@ public class MensagemPonto extends javax.swing.JDialog {
         tfTempo.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         getContentPane().add(tfTempo);
         tfTempo.setBounds(520, 230, 30, 30);
+
+        tfHorasTrab.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        getContentPane().add(tfHorasTrab);
+        tfHorasTrab.setBounds(370, 50, 180, 20);
 
         tfMensagem3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tfMensagem3.setText("Entrada");
@@ -259,7 +267,7 @@ public class MensagemPonto extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MensagemPonto dialog = new MensagemPonto(new javax.swing.JFrame(), true, null, null, null);
+                MensagemPonto dialog = new MensagemPonto(new javax.swing.JFrame(), true, null, null, null, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -279,6 +287,7 @@ public class MensagemPonto extends javax.swing.JDialog {
     private javax.swing.JFileChooser selecionarFoto;
     private javax.swing.JLabel tfHora;
     private javax.swing.JLabel tfHora1;
+    private javax.swing.JLabel tfHorasTrab;
     private javax.swing.JLabel tfMensagem1;
     private javax.swing.JLabel tfMensagem2;
     private javax.swing.JLabel tfMensagem3;

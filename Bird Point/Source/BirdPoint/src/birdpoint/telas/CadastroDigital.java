@@ -318,7 +318,7 @@ public class CadastroDigital extends javax.swing.JDialog {
             tfNome.setText(funcionario.getNomeFuncionario());
             try {
                 ImageIcon foto = new ImageIcon();
-                foto.setImage(Util.byteToImage(funcionario.getFotoProf()));
+                foto.setImage(Util.byteToImage(funcionario.getFotoFunc()));
                 btFoto.setIcon(foto);
             } catch (Exception e) {
             }

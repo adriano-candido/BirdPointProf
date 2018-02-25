@@ -61,7 +61,6 @@ public class CadastroHorario extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btVoltar = new javax.swing.JButton();
         jcTurno = new javax.swing.JComboBox();
         jlNomeUsuario4 = new javax.swing.JLabel();
         tfHorarioSaida = new javax.swing.JFormattedTextField();
@@ -84,6 +83,7 @@ public class CadastroHorario extends javax.swing.JDialog {
         btAdd = new javax.swing.JButton();
         btRemover = new javax.swing.JButton();
         btCurso114 = new javax.swing.JButton();
+        btVoltar2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -91,20 +91,6 @@ public class CadastroHorario extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(null);
-
-        btVoltar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/voltar.png"))); // NOI18N
-        btVoltar.setText("Voltar");
-        btVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btVoltar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btVoltar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btVoltarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btVoltar);
-        btVoltar.setBounds(20, 340, 90, 70);
 
         jcTurno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jcTurno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-----", "Manhã", "Tarde", "Noite" }));
@@ -328,6 +314,21 @@ public class CadastroHorario extends javax.swing.JDialog {
         getContentPane().add(btCurso114);
         btCurso114.setBounds(560, 70, 20, 29);
 
+        btVoltar2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btVoltar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/voltar.png"))); // NOI18N
+        btVoltar2.setText("Voltar");
+        btVoltar2.setContentAreaFilled(false);
+        btVoltar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btVoltar2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btVoltar2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btVoltar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVoltar2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btVoltar2);
+        btVoltar2.setBounds(20, 340, 90, 70);
+
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/CadastroSetor.png"))); // NOI18N
         jLabel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         getContentPane().add(jLabel6);
@@ -392,11 +393,6 @@ public class CadastroHorario extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecione o funcionário!");
         }
     }//GEN-LAST:event_btSalvarActionPerformed
-
-    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        dispose();
-
-    }//GEN-LAST:event_btVoltarActionPerformed
 
     private void tfFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFuncionarioActionPerformed
         // TODO add your handling code here:
@@ -464,6 +460,10 @@ public class CadastroHorario extends javax.swing.JDialog {
                     "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btRemoverActionPerformed
+
+    private void btVoltar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltar2ActionPerformed
+        dispose();
+    }//GEN-LAST:event_btVoltar2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -580,6 +580,8 @@ public class CadastroHorario extends javax.swing.JDialog {
     private javax.swing.JButton btRemover;
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btVoltar;
+    private javax.swing.JButton btVoltar1;
+    private javax.swing.JButton btVoltar2;
     private javax.swing.JLabel jLObrigatorioNome2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
