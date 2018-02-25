@@ -38,6 +38,9 @@ public class Ponto {
     private Time horaSaidaPonto;
     
     @Column
+    private Time qtdHorasTrabalhadas;
+    
+    @Column
     private String diaDaSemana;
 
     @Column(length = 2000)
@@ -209,6 +212,20 @@ public class Ponto {
      */
     public void setDataPontoCompleta(Date dataPontoCompleta) {
         this.dataPontoCompleta = dataPontoCompleta;
+    }
+
+    /**
+     * @return the qtdHorasTrabalhadas
+     */
+    public Time getQtdHorasTrabalhadas() {
+        return qtdHorasTrabalhadas;
+    }
+
+    /**
+     * @param qtdHorasTrabalhadas the qtdHorasTrabalhadas to set
+     */
+    public void setQtdHorasTrabalhadas(Time qtdHorasTrabalhadas) {
+        this.qtdHorasTrabalhadas = qtdHorasTrabalhadas;
     }
 
 

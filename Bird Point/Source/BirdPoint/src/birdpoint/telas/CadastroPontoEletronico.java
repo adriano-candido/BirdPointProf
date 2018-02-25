@@ -47,10 +47,6 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
     LeitorBiometrico digital = new LeitorBiometrico();
     DPFPTemplate templateDigital = DPFPGlobal.getTemplateFactory().createTemplate();
 
-    List<Integer> listaCodigoFuncionarioesManha = new ArrayList<>();
-    List<Integer> listaCodigoFuncionarioesTarde = new ArrayList<>();
-    List<Integer> listaCodigoFuncionarioesNoite = new ArrayList<>();
-
     List<Funcionario> listaFuncionarioesManha = new ArrayList<>();
     List<Funcionario> listaFuncionarioesTarde = new ArrayList<>();
     List<Funcionario> listaFuncionarioesNoite = new ArrayList<>();
@@ -78,11 +74,11 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
             public void run() {
                 try {
                     while (true) {
-                            dataHoraSistema = new Date();
-                            int hora = Integer.parseInt(formatarHora.format(dataHoraSistema));
-                            if (hora == 23) {
-                                System.exit(0);
-                            }
+//                            dataHoraSistema = new Date();
+//                            int hora = Integer.parseInt(formatarHora.format(dataHoraSistema));
+//                            if (hora == 23) {
+//                                System.exit(0);
+//                            }
                             sleep(900000);
                     }
                 } catch (InterruptedException ex) {
@@ -165,91 +161,18 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         dataHoraSistema = new Date();
         int hora = Integer.parseInt(formatarHora.format(dataHoraSistema));
         int minuto = Integer.parseInt(formatarMinuto.format(dataHoraSistema));
-        if ((hora >= 5 && hora <= 12) || ((hora == 13) && minuto <= 15)) {
+        if ((hora >= 5 && (hora <= 12 )) || ((hora == 12) && minuto <= 59)) {
             return "Manhã";
-        } else if ((hora >= 13 && hora <= 16) || ((hora == 17) && minuto <= 20)) {
+        } else if ((hora >= 13 && hora < 18) || ((hora == 17) && minuto <= 59)) {
             return "Tarde";
         } else {
             return "Noite";
         }
     }
 
-//este método deve preencher a lista de codigo de funcionarioes sem que eles se repitam
-    public void preencherListaFuncionario(int[] arrayFuncionarioes, String turno) {
-        dataHoraSistema = new Date();
-        for (int i = 0; i < arrayFuncionarioes.length; i++) {
-            if (arrayFuncionarioes[i] != 0) {
-                if (turno.equalsIgnoreCase("Manhã")) {
-                    if (!listaCodigoFuncionarioesManha.contains(arrayFuncionarioes[i])) {
-                        listaCodigoFuncionarioesManha.add(arrayFuncionarioes[i]);
-                    }
-                } else if (turno.equalsIgnoreCase("Tarde")) {
-                    if (!listaCodigoFuncionarioesTarde.contains(arrayFuncionarioes[i])) {
-                        listaCodigoFuncionarioesTarde.add(arrayFuncionarioes[i]);
-                    }
-                } else if (turno.equalsIgnoreCase("Noite")) {
-                    if (!listaCodigoFuncionarioesNoite.contains(arrayFuncionarioes[i])) {
-                        listaCodigoFuncionarioesNoite.add(arrayFuncionarioes[i]);
-                    }
-                }
-            }
-        }
-    }
-
-    //Este método captura somente o codigo dos funcionarioes daquele dia, exemplo, segunda feira
-    public int[] capturarFuncionarioesDoDia(int[] arrayParametro) {
-        dataHoraSistema = new Date();
-        List<Integer> listaCodigo = new ArrayList();
-        if (formatarDiaSemana.format(dataHoraSistema).equalsIgnoreCase("Seg")) {
-            for (int i = 0; i < 6; i++) {
-                listaCodigo.add(arrayParametro[i]);
-            }
-        } else if (formatarDiaSemana.format(dataHoraSistema).equalsIgnoreCase("Ter")) {
-            for (int i = 6; i < 12; i++) {
-                listaCodigo.add(arrayParametro[i]);
-            }
-        } else if (formatarDiaSemana.format(dataHoraSistema).equalsIgnoreCase("Qua")) {
-            for (int i = 12; i < 18; i++) {
-                listaCodigo.add(arrayParametro[i]);
-            }
-        } else if (formatarDiaSemana.format(dataHoraSistema).equalsIgnoreCase("Qui")) {
-            for (int i = 18; i < 24; i++) {
-                listaCodigo.add(arrayParametro[i]);
-            }
-        } else if (formatarDiaSemana.format(dataHoraSistema).equalsIgnoreCase("Sex")) {
-            for (int i = 24; i < 30; i++) {
-                listaCodigo.add(arrayParametro[i]);
-            }
-        } else if (formatarDiaSemana.format(dataHoraSistema).equalsIgnoreCase("Sáb")) {
-            for (int i = 30; i < 36; i++) {
-                listaCodigo.add(arrayParametro[i]);
-            }
-        }
-        int[] arrayRetorno = new int[6];
-        try {
-
-            for (int i = 0; i < arrayRetorno.length; i++) {
-                arrayRetorno[i] = listaCodigo.get(i);
-            }
-        } catch (Exception e) {
-        }
-
-        return arrayRetorno;
-    }
 
     public void cadastrarPontoDiario() {
         dataHoraSistema = new Date();
-//        for (QuadroHorarios quadroHorario : listaQuadroHorarios) {
-//            int[] arrayFuncionarioesDiario = capturarFuncionarioesDoDia(quadroHorario.getOrdenacaoFuncionarioes());
-//            if (quadroHorario.getTurno().equalsIgnoreCase("Manhã")) {
-//                preencherListaFuncionario(arrayFuncionarioesDiario, "Manhã");
-//            } else if (quadroHorario.getTurno().equalsIgnoreCase("Tarde")) {
-//                preencherListaFuncionario(arrayFuncionarioesDiario, "Tarde");
-//            } else if (quadroHorario.getTurno().equalsIgnoreCase("Noite")) {
-//                preencherListaFuncionario(arrayFuncionarioesDiario, "Noite");
-//            }
-//        }
-        carregarFuncionarioesNaLista();
         for (Funcionario funcManha : listaFuncionarioesManha) {
             ponto.setDataPonto(formatarData.format(dataHoraSistema));
             ponto.setFuncionario(funcManha);
@@ -279,17 +202,7 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         }
     }
 
-    public void carregarFuncionarioesNaLista() {
-        for (Integer funcManha : listaCodigoFuncionarioesManha) {
-            listaFuncionarioesManha.add(carregarFuncionario(funcManha));
-        }
-        for (Integer funcTarde : listaCodigoFuncionarioesTarde) {
-            listaFuncionarioesTarde.add(carregarFuncionario(funcTarde));
-        }
-        for (Integer funcNoite : listaCodigoFuncionarioesNoite) {
-            listaFuncionarioesNoite.add(carregarFuncionario(funcNoite));
-        }
-    }
+
 
     public Funcionario carregarFuncionario(int id) {
         for (Funcionario funcionario : listaFuncionarioes) {
@@ -401,17 +314,17 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         tfHora.setBounds(400, 100, 180, 19);
 
         tfHora1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        tfHora1.setText("Noite: 17:21 ás 23:20");
+        tfHora1.setText("Noite: 18:00 ás 23:00");
         getContentPane().add(tfHora1);
         tfHora1.setBounds(20, 100, 210, 19);
 
         tfHora2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        tfHora2.setText("Manhã: 5:00 ás 13:15");
+        tfHora2.setText("Manhã: 5:00 ás 12:59");
         getContentPane().add(tfHora2);
         tfHora2.setBounds(20, 60, 190, 19);
 
         tfHora3.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        tfHora3.setText("Tarde: 13:16 ás 17:20");
+        tfHora3.setText("Tarde: 13:00 ás 17:59");
         getContentPane().add(tfHora3);
         tfHora3.setBounds(20, 80, 200, 19);
 

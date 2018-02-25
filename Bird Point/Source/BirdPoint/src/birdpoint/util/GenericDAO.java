@@ -1,5 +1,10 @@
 package birdpoint.util;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
@@ -159,8 +164,8 @@ public abstract class GenericDAO<T> {
         }
         return lista;
     }
-    
-        public List<T> checkExistsPontoFuncionario(String campo1, String valor1, String campo2, int valor2, String campo3, String valor3) {
+
+    public List<T> checkExistsPontoFuncionario(String campo1, String valor1, String campo2, int valor2, String campo3, String valor3) {
         List<T> lista = null;
         try {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
@@ -249,6 +254,21 @@ public abstract class GenericDAO<T> {
         }
         return objeto;
 
+    }
+
+    public <T> List<T> converterJsonEmLista(String json, Class<T> clazz) {
+        if (json == null) {
+            return null;
+        }
+        Gson gson = new Gson();
+        JsonParser parser = new JsonParser();
+        JsonArray array = parser.parse(json).getAsJsonArray();
+        List<T> list = new ArrayList<>();
+        for (final JsonElement jsonElement : array) {
+            T entity = gson.fromJson(jsonElement, clazz);
+            list.add(entity);
+        }
+        return list;
     }
 
     /**

@@ -97,7 +97,6 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         tfBairro = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jrAtivo = new javax.swing.JRadioButton();
         jrInativo = new javax.swing.JRadioButton();
@@ -138,7 +137,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Enviar E-mail.:");
         getContentPane().add(jLabel11);
-        jLabel11.setBounds(440, 190, 100, 20);
+        jLabel11.setBounds(440, 160, 100, 20);
 
         tfEmail.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         tfEmail.addActionListener(new java.awt.event.ActionListener() {
@@ -152,7 +151,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("Telefone:");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(390, 160, 64, 17);
+        jLabel10.setBounds(330, 130, 120, 17);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Rua.:");
@@ -161,7 +160,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
 
         tfRG.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         getContentPane().add(tfRG);
-        tfRG.setBounds(210, 160, 170, 22);
+        tfRG.setBounds(210, 160, 220, 22);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Bairro.:");
@@ -185,11 +184,6 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         jLabel7.setText("Cidade.:");
         getContentPane().add(jLabel7);
         jLabel7.setBounds(150, 220, 60, 19);
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setText("Titulação.:");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(320, 130, 80, 17);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Situação.:");
@@ -323,7 +317,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         tfTelefone.setName(""); // NOI18N
         tfTelefone.setPreferredSize(new java.awt.Dimension(2, 19));
         getContentPane().add(tfTelefone);
-        tfTelefone.setBounds(460, 160, 100, 22);
+        tfTelefone.setBounds(400, 130, 160, 22);
 
         tfCPF.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         try {
@@ -368,7 +362,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         jcEmail.setSelected(true);
         jcEmail.setContentAreaFilled(false);
         getContentPane().add(jcEmail);
-        jcEmail.setBounds(540, 190, 20, 20);
+        jcEmail.setBounds(540, 160, 20, 20);
 
         btFoto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/default.jpg"))); // NOI18N
@@ -612,7 +606,6 @@ public class CadastroFuncionario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JCheckBox jcEmail;
     private javax.swing.JLabel jlCadProfessores;

@@ -12,17 +12,18 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static javassist.CtMethod.ConstParameter.string;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JCheckBox;
@@ -30,7 +31,6 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -301,7 +301,7 @@ public class Util {
             } else if (c instanceof JCheckBox) {
                 JCheckBox field = (JCheckBox) c;
                 field.setSelected(false);
-            }else if (c instanceof JTextArea) {
+            } else if (c instanceof JTextArea) {
                 JTextArea field = (JTextArea) c;
                 field.setText("");
             }
@@ -377,6 +377,34 @@ public class Util {
         }
         if (campo.getText().length() >= 3) {
             evt.consume();
+        }
+    }
+
+    public static String diferencaEntreHoras(String horaInicial, String horaFinal) throws ParseException {
+        SimpleDateFormat formatarHoraCompleta = new SimpleDateFormat("HH:mm:ss");
+
+        Date dateCadguia = formatarHoraCompleta.parse(horaInicial);
+        Date dateCadguia2 = formatarHoraCompleta.parse(horaFinal);
+        Calendar dataInicial = Calendar.getInstance();
+        Calendar dataFinal = Calendar.getInstance();
+        dataInicial.setTime(dateCadguia);
+        dataFinal.setTime(dateCadguia2);
+        long diferenca = dataFinal.getTimeInMillis() - dataInicial.getTimeInMillis();
+        long diferencaSeg = diferenca / 1000;    //DIFERENCA EM SEGUNDOS
+        long diferencaMin = diferenca / (60 * 1000);    //DIFERENCA EM MINUTOS   
+        long diferencaHoras = diferenca / (60 * 60 * 1000);    // DIFERENCA EM HORAS
+
+        diferencaSeg = diferencaSeg%60;
+        diferencaMin = diferencaMin%60;
+        return retornaNumeroFormatado(diferencaHoras) + ":" + retornaNumeroFormatado(diferencaMin)+":"+
+                retornaNumeroFormatado(diferencaSeg);
+    }
+
+    public static String retornaNumeroFormatado(long numero) {
+        if (numero >= 0 && numero <= 9) {
+            return "0" + numero;
+        } else {
+            return String.valueOf(numero);
         }
     }
 

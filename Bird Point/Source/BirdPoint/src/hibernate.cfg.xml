@@ -14,9 +14,11 @@
         <property name="generate_statistics">false</property>
         <property name="use_sql_coments">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <mapping class="birdpoint.professor.Professor"/>     
-        <mapping class="birdpoint.usuario.Usuario"/>   
-        <mapping class="birdpoint.registro.ponto.Ponto"/>  
+        <mapping class="birdpoint.funcionario.Funcionario"/>
+        <mapping class="birdpoint.usuario.Usuario"/>
+        <mapping class="birdpoint.registro.ponto.Ponto"/>
+        <mapping class="birdpoint.setor.Setor"/>
+        <mapping class="birdpoint.horariosemanal.Horario"/>
         
     </session-factory>
 </hibernate-configuration>

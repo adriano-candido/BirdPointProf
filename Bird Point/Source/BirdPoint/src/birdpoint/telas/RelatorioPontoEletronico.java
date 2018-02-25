@@ -71,9 +71,9 @@ public class RelatorioPontoEletronico extends javax.swing.JDialog {
         tfMensagem1.setBounds(30, 30, 300, 30);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("Professor.:");
+        jLabel3.setText("Funcionário.:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 170, 100, 30);
+        jLabel3.setBounds(20, 170, 130, 30);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("Data Início.:");

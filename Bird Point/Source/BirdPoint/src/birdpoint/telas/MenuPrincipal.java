@@ -52,6 +52,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuCadastros = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         subUsuario1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         subUsuario = new javax.swing.JMenuItem();
         menuBiometria = new javax.swing.JMenu();
         subRegistrarPonto = new javax.swing.JMenuItem();
@@ -136,6 +137,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         menuCadastros.add(subUsuario1);
+
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
+        jMenuItem4.setText("Horários");
+        jMenuItem4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(jMenuItem4);
 
         subUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
         subUsuario.setText("Usuário");
@@ -257,6 +268,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuRelatorioActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        CadastroHorario cadHorario = new CadastroHorario();
+        cadHorario.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -297,6 +313,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btLogout;
     private javax.swing.JMenuBar jMenu;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JLabel jlHome;
     private javax.swing.JLabel jlNome2;
     private javax.swing.JLabel jlNome3;
