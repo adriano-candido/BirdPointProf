@@ -125,6 +125,8 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
             ponto = listaPontosFuncionario.get(0);
             if (ponto.getHoraEntradaPonto() == null) {
                 ponto.setHoraEntradaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
+                Date dataNova = formatarHoraCompleta.parse("00:00:00");
+                ponto.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(dataNova)));
             } else if (ponto.getHoraEntradaPonto() != null && ponto.getHoraSaidaPonto() == null) {
                 ponto.setHoraSaidaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
                 Date dataNova = formatarHoraCompleta.parse(Util.diferencaEntreHoras(String.valueOf(ponto.getHoraEntradaPonto()), String.valueOf(ponto.getHoraSaidaPonto())));
@@ -132,7 +134,8 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
             } else {
                 ponto.setHoraEntradaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
                 ponto.setHoraSaidaPonto(null);
-                ponto.setQtdHorasTrabalhadas(null);
+                Date dataNova = formatarHoraCompleta.parse("00:00:00");
+                ponto.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(dataNova)));
             }
             listaPontoTabela.add(0, ponto);
             atualizarTabela();
@@ -145,6 +148,8 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
             ponto.setDiaDaSemana(formatarDiaSemana.format(dataHoraSistema));
             ponto.setFuncionario(funcionario);
             ponto.setTurnoPonto(carregarTurno());
+            Date dataNova = formatarHoraCompleta.parse("00:00:00");
+            ponto.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(dataNova)));
             ponto.setHoraEntradaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
             listaPontoTabela.add(0, ponto);
             atualizarTabela();

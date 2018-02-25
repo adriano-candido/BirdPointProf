@@ -5,7 +5,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
-	<property name="com.jaspersoft.studio.data.sql.tables" value="cG9udG8gLDE1NCwxNSwwZmVlYWQyNy1iZTU4LTQzMWQtOTk2NS1kZjhkYzQ2NzBhYzQ7cHJvZmVz&#xA;c29yICwxNSwxNSw2MWFjYWQ1MC0yYzI5LTQ1Y2UtYmIwNC1jMTdiMmM3ZTc4ZDE7"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<subDataset name="dataset1" uuid="0967c58a-bb40-496d-9474-f29fc4086914"/>
 	<subDataset name="dataset2" uuid="03709086-e9d3-4543-8c83-5250e170f64b"/>
 	<subDataset name="dataset3" uuid="d2425392-aeae-4765-8953-0b6a147cde4e"/>
@@ -46,8 +46,18 @@ WHERE
 	<field name="funcionario_idFuncionario" class="java.lang.Integer"/>
 	<field name="justificativaPonto" class="java.lang.String"/>
 	<field name="dataPontoCompleta" class="java.sql.Timestamp"/>
+	<field name="qtdHorasTrabalhadas" class="java.sql.Time"/>
 	<variable name="soma" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="somaHorasTrab" class="java.lang.Integer" resetType="Group" resetGroup="idLote" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdHorasTrabalhadas}.getHours()]]></variableExpression>
+	</variable>
+	<variable name="somaMinutosTrab" class="java.lang.Integer" resetType="Group" resetGroup="idLote" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdHorasTrabalhadas}.getMinutes()]]></variableExpression>
+	</variable>
+	<variable name="somaSegundos" class="java.lang.Integer" resetType="Group" resetGroup="idLote" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdHorasTrabalhadas}.getSeconds()]]></variableExpression>
 	</variable>
 	<group name="idLote">
 		<groupExpression><![CDATA[$F{nomeFuncionario}]]></groupExpression>
@@ -58,85 +68,96 @@ WHERE
 					<reportElement x="21" y="7" width="550" height="1" uuid="1d3588f1-d569-4b2c-9c24-6439eddacc48"/>
 				</rectangle>
 				<staticText>
-					<reportElement mode="Opaque" x="103" y="12" width="123" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="e917cace-6095-44e9-9efb-1188d5598bbe"/>
+					<reportElement mode="Opaque" x="103" y="12" width="137" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="e917cace-6095-44e9-9efb-1188d5598bbe"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="16" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Funcionário(a).:]]></text>
+					<text><![CDATA[Colaborador(a).:]]></text>
 				</staticText>
 				<image>
-					<reportElement x="10" y="16" width="80" height="80" uuid="73e9fbbc-ff1f-4dcf-80bb-cfa99da38976"/>
+					<reportElement x="24" y="12" width="60" height="64" uuid="73e9fbbc-ff1f-4dcf-80bb-cfa99da38976"/>
 					<imageExpression><![CDATA[$F{fotoFunc}]]></imageExpression>
 				</image>
 				<staticText>
-					<reportElement x="95" y="82" width="65" height="20" uuid="43173983-404c-49f2-9b22-61dcac92c83b">
+					<reportElement x="14" y="82" width="65" height="20" uuid="43173983-404c-49f2-9b22-61dcac92c83b">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					</reportElement>
 					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
+						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Data]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="284" y="82" width="75" height="20" uuid="825c0c44-6111-4c17-ad97-766f7998de3e"/>
+					<reportElement x="207" y="82" width="75" height="20" uuid="825c0c44-6111-4c17-ad97-766f7998de3e"/>
 					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
+						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Entrada]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="363" y="82" width="61" height="20" uuid="639c15fe-91ee-41e6-ad61-41ec17e6c70d"/>
+					<reportElement x="281" y="82" width="61" height="20" uuid="639c15fe-91ee-41e6-ad61-41ec17e6c70d"/>
 					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
+						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Saída]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="167" y="82" width="39" height="20" uuid="819402b5-62d9-4c78-95bf-1fee9d1eb27e"/>
+					<reportElement x="86" y="82" width="39" height="20" uuid="819402b5-62d9-4c78-95bf-1fee9d1eb27e"/>
 					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
+						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Dia]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="105" y="40" width="121" height="28" forecolor="#000000" backcolor="#FFFFFF" uuid="768acdee-1e41-446f-8d4f-31e7a5c61262"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font size="16" isBold="true"/>
+					<reportElement x="463" y="83" width="81" height="20" uuid="683f07da-683e-4c1a-9a5a-98792aa33f21"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[E-mail.:]]></text>
+					<text><![CDATA[Justificado]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="426" y="82" width="95" height="20" uuid="683f07da-683e-4c1a-9a5a-98792aa33f21"/>
+					<reportElement x="131" y="82" width="73" height="20" uuid="50fe5788-5ce0-4055-a0e3-f4e73aef8a18"/>
 					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Justificado??]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="208" y="82" width="73" height="20" uuid="50fe5788-5ce0-4055-a0e3-f4e73aef8a18"/>
-					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
+						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Turno]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="230" y="11" width="324" height="26" forecolor="#006699" uuid="548dbbe7-6fc7-4438-b762-63cc720bcfd2"/>
+					<reportElement x="230" y="15" width="324" height="26" forecolor="#006699" uuid="548dbbe7-6fc7-4438-b762-63cc720bcfd2"/>
 					<textElement>
 						<font size="16" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nomeFuncionario}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="230" y="41" width="325" height="26" forecolor="#006699" uuid="7ee9497b-d910-4f76-94aa-2581c1c4341f"/>
-					<textElement>
+				<staticText>
+					<reportElement x="358" y="82" width="80" height="20" uuid="afae21a9-3ad6-43aa-8ca5-ad8f89467e4f"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Horas Trab.]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="idLote">
+					<reportElement x="264" y="45" width="195" height="23" printWhenGroupChanges="horasTrabalhadas" forecolor="#006699" uuid="9d123a55-fa3a-43e4-92b0-74a0773cd337"/>
+					<textElement textAlignment="Left">
 						<font size="16" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{emailFuncionario}.equals("") ? "Não cadastrado" : $F{emailFuncionario}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($V{somaHorasTrab} >=0 && $V{somaHorasTrab} <=9 ?   "0"+$V{somaHorasTrab} : $V{somaHorasTrab}) +":"+($V{somaMinutosTrab} >=0 && $V{somaMinutosTrab} <=9 ?   "0"+$V{somaMinutosTrab} : $V{somaMinutosTrab}) 
++":"+($V{somaSegundos} >=0 && $V{somaSegundos} <=9 ?   "0"+$V{somaSegundos} : $V{somaSegundos}) ]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="104" y="43" width="156" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="a4bc796b-25e8-49d9-88fa-03ab87b50845"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Horas Trabalhadas.:]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
+	</group>
+	<group name="horasTrabalhadas">
+		<groupExpression><![CDATA[$V{somaHorasTrab}]]></groupExpression>
 	</group>
 	<background>
 		<band/>
@@ -173,10 +194,6 @@ WHERE
 					<reportElement x="40" y="9" width="90" height="71" uuid="2bfa5707-2bde-4d99-a705-5cf702f9342c"/>
 					<imageExpression><![CDATA["birdpoint/imagens/logo-1.png"]]></imageExpression>
 				</image>
-				<image>
-					<reportElement x="501" y="5" width="69" height="55" uuid="4d5043ce-95dd-4034-9600-0ad5f4eb9879"/>
-					<imageExpression><![CDATA["birdpoint/imagens/logofvs.png"]]></imageExpression>
-				</image>
 				<textField>
 					<reportElement x="286" y="68" width="192" height="15" forecolor="#FFFFFF" uuid="e4011c04-48aa-4517-90a1-c9e2bd45db31"/>
 					<box>
@@ -191,57 +208,64 @@ WHERE
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="27">
+		<band height="29">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="95" y="4" width="121" height="20" uuid="343bb6ae-39c9-40e7-9954-4b4333578272"/>
+				<reportElement x="15" y="3" width="73" height="20" uuid="343bb6ae-39c9-40e7-9954-4b4333578272"/>
 				<textElement textAlignment="Justified">
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dataPontoCompleta}]]></textFieldExpression>
 			</textField>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="10" y="2" width="574" height="24" uuid="402d81c1-cc60-407c-aa9c-85333b2a4710"/>
+			</rectangle>
 			<textField>
-				<reportElement x="171" y="4" width="59" height="20" uuid="7c27a7e9-1c78-4c0f-b1de-bd921d574a97"/>
+				<reportElement positionType="FixRelativeToBottom" x="95" y="3" width="59" height="20" uuid="7c27a7e9-1c78-4c0f-b1de-bd921d574a97"/>
 				<textElement textAlignment="Justified">
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{diaDaSemana}]]></textFieldExpression>
 			</textField>
-			<textField pattern="HH:mm">
-				<reportElement x="301" y="4" width="81" height="20" uuid="9390bfb1-7c85-4f64-9af3-68aa065b6e53"/>
+			<textField pattern="HH:mm:ss">
+				<reportElement positionType="FixRelativeToBottom" x="222" y="3" width="81" height="20" uuid="9390bfb1-7c85-4f64-9af3-68aa065b6e53"/>
 				<textElement textAlignment="Justified">
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{horaEntradaPonto}.equals(null) ? "FALTOU" : $F{horaEntradaPonto}]]></textFieldExpression>
 			</textField>
-			<textField pattern="HH:mm">
-				<reportElement x="368" y="4" width="81" height="20" uuid="1c9c256b-ebbf-4a7c-899d-2b5b10124f96"/>
+			<textField pattern="HH:mm:ss">
+				<reportElement positionType="FixRelativeToBottom" x="296" y="3" width="81" height="20" uuid="1c9c256b-ebbf-4a7c-899d-2b5b10124f96"/>
 				<textElement textAlignment="Justified">
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{horaSaidaPonto}.equals(null) ? "FALTOU" : $F{horaSaidaPonto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{horaSaidaPonto}.equals(null) ? "" : $F{horaSaidaPonto}]]></textFieldExpression>
 			</textField>
-			<rectangle>
-				<reportElement mode="Transparent" x="80" y="4" width="447" height="20" uuid="402d81c1-cc60-407c-aa9c-85333b2a4710"/>
-			</rectangle>
 			<textField pattern="HH:mm">
-				<reportElement x="452" y="3" width="81" height="20" uuid="c880d4b4-bc04-4e82-af9b-827a3e65a3eb"/>
+				<reportElement positionType="FixRelativeToBottom" x="490" y="3" width="54" height="20" uuid="c880d4b4-bc04-4e82-af9b-827a3e65a3eb"/>
 				<textElement textAlignment="Justified">
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[(($F{horaSaidaPonto}.equals(null) || $F{horaEntradaPonto}.equals(null)) && ($F{justificativaPonto}.equals(null) || $F{justificativaPonto}.equals("")) ? "NÃO" : (!$F{horaSaidaPonto}.equals(null) && !$F{horaEntradaPonto}.equals(null) ? "" : "SIM"))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(($F{horaSaidaPonto}.equals(null) || $F{horaEntradaPonto}.equals(null)) && ($F{justificativaPonto}.equals(null) || $F{justificativaPonto}.equals("")) ? "Não" : (!$F{horaSaidaPonto}.equals(null) && !$F{horaEntradaPonto}.equals(null) ? "" : "Sim"))]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="226" y="5" width="59" height="20" uuid="8501beae-2891-4ffa-aea2-7fbc5c539ba6"/>
+				<reportElement positionType="FixRelativeToBottom" x="153" y="3" width="59" height="20" uuid="8501beae-2891-4ffa-aea2-7fbc5c539ba6"/>
 				<textElement textAlignment="Justified">
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{turnoPonto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm:ss">
+				<reportElement positionType="FixRelativeToBottom" x="368" y="4" width="81" height="20" uuid="53f84d90-53bb-4a00-8e0d-bd1ddae0382f"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qtdHorasTrabalhadas}.equals(null) ? "" : $F{qtdHorasTrabalhadas}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="19"/>
+		<band height="28"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="33">
