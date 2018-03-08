@@ -84,7 +84,7 @@ public class RelatorioPontoEletronico extends javax.swing.JDialog {
         btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/imprimir - 40.png"))); // NOI18N
         btVoltar.setText("Gerar Relatório");
         btVoltar.setContentAreaFilled(false);
-        btVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btVoltar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btVoltar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +99,7 @@ public class RelatorioPontoEletronico extends javax.swing.JDialog {
         btVoltar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/voltar.png"))); // NOI18N
         btVoltar1.setText("Voltar");
         btVoltar1.setContentAreaFilled(false);
-        btVoltar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btVoltar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btVoltar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btVoltar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btVoltar1.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +145,7 @@ public class RelatorioPontoEletronico extends javax.swing.JDialog {
         btCurso18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btCurso18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/pesquisar20.png"))); // NOI18N
         btCurso18.setContentAreaFilled(false);
-        btCurso18.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btCurso18.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btCurso18.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btCurso18.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btCurso18.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +164,7 @@ public class RelatorioPontoEletronico extends javax.swing.JDialog {
         btCurso114.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btCurso114.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/limpar20.png"))); // NOI18N
         btCurso114.setContentAreaFilled(false);
-        btCurso114.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btCurso114.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btCurso114.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btCurso114.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btCurso114.addActionListener(new java.awt.event.ActionListener() {

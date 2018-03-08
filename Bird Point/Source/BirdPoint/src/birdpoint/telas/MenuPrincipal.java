@@ -53,6 +53,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         subUsuario1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         subUsuario = new javax.swing.JMenuItem();
         menuBiometria = new javax.swing.JMenu();
         subRegistrarPonto = new javax.swing.JMenuItem();
@@ -70,7 +71,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btLogout.setText("Sair");
         btLogout.setToolTipText("Sair");
         btLogout.setContentAreaFilled(false);
-        btLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btLogout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btLogout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -113,14 +114,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         menuCadastros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar80.png"))); // NOI18N
         menuCadastros.setText("Cadastro");
-        menuCadastros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuCadastros.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menuCadastros.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         menuCadastros.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         menuCadastros.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
         jMenuItem3.setText("Funcionário");
-        jMenuItem3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -130,7 +131,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         subUsuario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
         subUsuario1.setText("Biometria");
-        subUsuario1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        subUsuario1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         subUsuario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subUsuario1ActionPerformed(evt);
@@ -140,7 +141,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
         jMenuItem4.setText("Horários");
-        jMenuItem4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -148,9 +149,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         menuCadastros.add(jMenuItem4);
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
+        jMenuItem5.setText("Empresas");
+        jMenuItem5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(jMenuItem5);
+
         subUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
         subUsuario.setText("Usuário");
-        subUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        subUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         subUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subUsuarioActionPerformed(evt);
@@ -162,7 +173,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         menuBiometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/BotaoBiometria.png"))); // NOI18N
         menuBiometria.setText("Biometria");
-        menuBiometria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuBiometria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menuBiometria.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         menuBiometria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         menuBiometria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -174,7 +185,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         subRegistrarPonto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
         subRegistrarPonto.setText("Registrar Ponto");
-        subRegistrarPonto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        subRegistrarPonto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         subRegistrarPonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subRegistrarPontoActionPerformed(evt);
@@ -184,7 +195,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         subJustificativa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
         subJustificativa.setText("Justificativa");
-        subJustificativa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        subJustificativa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         subJustificativa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subJustificativaActionPerformed(evt);
@@ -196,7 +207,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         menuRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/relatorio.png"))); // NOI18N
         menuRelatorio.setText("Relatórios");
-        menuRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menuRelatorio.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         menuRelatorio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         menuRelatorio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -208,7 +219,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         subCadDespesas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
         subCadDespesas1.setText("Ponto Eletrônico");
-        subCadDespesas1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        subCadDespesas1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         subCadDespesas1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subCadDespesas1ActionPerformed(evt);
@@ -273,6 +284,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cadHorario.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        CadastroEmpresa cadastroEmpresa = new CadastroEmpresa(null, rootPaneCheckingEnabled);
+        cadastroEmpresa.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -314,6 +330,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenu;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JLabel jlHome;
     private javax.swing.JLabel jlNome2;
     private javax.swing.JLabel jlNome3;
