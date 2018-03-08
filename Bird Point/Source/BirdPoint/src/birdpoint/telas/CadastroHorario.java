@@ -96,7 +96,7 @@ public class CadastroHorario extends javax.swing.JDialog {
         jcTurno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-----", "Manhã", "Tarde", "Noite" }));
         jcTurno.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         getContentPane().add(jcTurno);
-        jcTurno.setBounds(420, 180, 160, 23);
+        jcTurno.setBounds(420, 180, 160, 29);
 
         jlNomeUsuario4.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jlNomeUsuario4.setText("Entrada.:");
@@ -120,7 +120,7 @@ public class CadastroHorario extends javax.swing.JDialog {
         jcDiaSemana.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-----", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo" }));
         jcDiaSemana.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         getContentPane().add(jcDiaSemana);
-        jcDiaSemana.setBounds(420, 130, 160, 23);
+        jcDiaSemana.setBounds(420, 130, 160, 29);
 
         jlNomeUsuario7.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jlNomeUsuario7.setText("Turno.:");
@@ -150,7 +150,7 @@ public class CadastroHorario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btPesquisar);
-        btPesquisar.setBounds(240, 340, 100, 69);
+        btPesquisar.setBounds(240, 340, 100, 73);
 
         tbHorario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -271,7 +271,7 @@ public class CadastroHorario extends javax.swing.JDialog {
         btCurso18.setBounds(530, 70, 30, 30);
 
         btAdd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/Salvar.png"))); // NOI18N
+        btAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar40.png"))); // NOI18N
         btAdd.setText("Adicionar");
         btAdd.setContentAreaFilled(false);
         btAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -283,10 +283,10 @@ public class CadastroHorario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btAdd);
-        btAdd.setBounds(410, 260, 100, 70);
+        btAdd.setBounds(410, 260, 90, 70);
 
         btRemover.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/Salvar.png"))); // NOI18N
+        btRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/remover40.png"))); // NOI18N
         btRemover.setText("Remover");
         btRemover.setContentAreaFilled(false);
         btRemover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -298,7 +298,7 @@ public class CadastroHorario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btRemover);
-        btRemover.setBounds(490, 260, 100, 70);
+        btRemover.setBounds(500, 260, 90, 70);
 
         btCurso114.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btCurso114.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/limpar20.png"))); // NOI18N
@@ -312,7 +312,7 @@ public class CadastroHorario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btCurso114);
-        btCurso114.setBounds(560, 70, 20, 29);
+        btCurso114.setBounds(560, 70, 20, 32);
 
         btVoltar2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btVoltar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/voltar.png"))); // NOI18N
@@ -329,7 +329,7 @@ public class CadastroHorario extends javax.swing.JDialog {
         getContentPane().add(btVoltar2);
         btVoltar2.setBounds(20, 340, 90, 70);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/CadastroSetor.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/cadHorario.png"))); // NOI18N
         jLabel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         getContentPane().add(jLabel6);
         jLabel6.setBounds(2, 0, 600, 420);
@@ -579,8 +579,6 @@ public class CadastroHorario extends javax.swing.JDialog {
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btRemover;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JButton btVoltar;
-    private javax.swing.JButton btVoltar1;
     private javax.swing.JButton btVoltar2;
     private javax.swing.JLabel jLObrigatorioNome2;
     private javax.swing.JLabel jLabel6;

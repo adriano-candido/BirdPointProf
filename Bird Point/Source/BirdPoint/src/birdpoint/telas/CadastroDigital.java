@@ -60,6 +60,7 @@ public class CadastroDigital extends javax.swing.JDialog {
             funcionario.setDigitalEsquerda(b);
             jlMaoEsquerda.setText("Capturada!");
         } catch (Exception e) {
+            
         }
     }
 

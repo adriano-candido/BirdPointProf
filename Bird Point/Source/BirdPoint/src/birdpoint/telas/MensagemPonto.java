@@ -143,7 +143,7 @@ public class MensagemPonto extends javax.swing.JDialog {
         tfHora.setBounds(370, 10, 180, 20);
 
         tfNomeFuncionario.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        tfNomeFuncionario.setText("nomeProfessor");
+        tfNomeFuncionario.setText("nomeFuncionario");
         getContentPane().add(tfNomeFuncionario);
         tfNomeFuncionario.setBounds(150, 90, 390, 30);
 

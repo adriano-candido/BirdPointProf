@@ -69,83 +69,6 @@ public class Funcionario {
     @Lob
     private byte[] fotoFunc;
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + this.getIdFuncionario();
-        hash = 67 * hash + Objects.hashCode(this.getNomeFuncionario());
-        hash = 67 * hash + Objects.hashCode(this.getRuaFuncionario());
-        hash = 67 * hash + Objects.hashCode(this.getCpfFuncionario());
-        hash = 67 * hash + Objects.hashCode(this.getRGFuncionario());
-        hash = 67 * hash + Objects.hashCode(this.getBairroFuncionario());
-        hash = 67 * hash + Objects.hashCode(this.getTelefoneFuncionario());
-        hash = 67 * hash + Objects.hashCode(this.getEmailFuncionario());
-        hash = 67 * hash + (this.isReceberEmail() ? 1 : 0);
-        hash = 67 * hash + (this.isSituacaoFuncionario() ? 1 : 0);
-        hash = 67 * hash + this.getNumeroCasa();
-        hash = 67 * hash + Objects.hashCode(this.getCidadeFuncionario());
-        hash = 67 * hash + Arrays.hashCode(this.getDigitalDireita());
-        hash = 67 * hash + Arrays.hashCode(this.getDigitalEsquerda());
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Funcionario other = (Funcionario) obj;
-        if (this.getIdFuncionario() != other.getIdFuncionario()) {
-            return false;
-        }
-        if (this.isReceberEmail() != other.isReceberEmail()) {
-            return false;
-        }
-        if (this.isSituacaoFuncionario() != other.isSituacaoFuncionario()) {
-            return false;
-        }
-        if (this.getNumeroCasa() != other.getNumeroCasa()) {
-            return false;
-        }
-        if (!Objects.equals(this.nomeFuncionario, other.nomeFuncionario)) {
-            return false;
-        }
-        if (!Objects.equals(this.ruaFuncionario, other.ruaFuncionario)) {
-            return false;
-        }
-        if (!Objects.equals(this.cpfFuncionario, other.cpfFuncionario)) {
-            return false;
-        }
-        if (!Objects.equals(this.RGFuncionario, other.RGFuncionario)) {
-            return false;
-        }
-        if (!Objects.equals(this.bairroFuncionario, other.bairroFuncionario)) {
-            return false;
-        }
-        if (!Objects.equals(this.telefoneFuncionario, other.telefoneFuncionario)) {
-            return false;
-        }
-        if (!Objects.equals(this.emailFuncionario, other.emailFuncionario)) {
-            return false;
-        }
-        if (!Objects.equals(this.cidadeFuncionario, other.cidadeFuncionario)) {
-            return false;
-        }
-        if (!Arrays.equals(this.digitalDireita, other.digitalDireita)) {
-            return false;
-        }
-        if (!Arrays.equals(this.digitalEsquerda, other.digitalEsquerda)) {
-            return false;
-        }
-        return true;
-    }
-
     /**
      * @return the idFuncionario
      */
@@ -259,6 +182,20 @@ public class Funcionario {
     }
 
     /**
+     * @return the receberEmail
+     */
+    public boolean isReceberEmail() {
+        return receberEmail;
+    }
+
+    /**
+     * @param receberEmail the receberEmail to set
+     */
+    public void setReceberEmail(boolean receberEmail) {
+        this.receberEmail = receberEmail;
+    }
+
+    /**
      * @return the situacaoFuncionario
      */
     public boolean isSituacaoFuncionario() {
@@ -311,7 +248,7 @@ public class Funcionario {
      * @param digitalDireita the digitalDireita to set
      */
     public void setDigitalDireita(byte[] digitalDireita) {
-        this.setDigitalDireita(digitalDireita);
+        this.digitalDireita = digitalDireita;
     }
 
     /**
@@ -325,21 +262,7 @@ public class Funcionario {
      * @param digitalEsquerda the digitalEsquerda to set
      */
     public void setDigitalEsquerda(byte[] digitalEsquerda) {
-        this.setDigitalEsquerda(digitalEsquerda);
-    }
-
-    /**
-     * @return the receberEmail
-     */
-    public boolean isReceberEmail() {
-        return receberEmail;
-    }
-
-    /**
-     * @param receberEmail the receberEmail to set
-     */
-    public void setReceberEmail(boolean receberEmail) {
-        this.receberEmail = receberEmail;
+        this.digitalEsquerda = digitalEsquerda;
     }
 
     /**
@@ -355,5 +278,7 @@ public class Funcionario {
     public void setFotoFunc(byte[] fotoFunc) {
         this.fotoFunc = fotoFunc;
     }
+
+  
 
 }

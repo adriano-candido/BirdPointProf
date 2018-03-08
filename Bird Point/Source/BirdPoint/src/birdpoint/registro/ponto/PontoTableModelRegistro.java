@@ -13,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
 public class PontoTableModelRegistro extends AbstractTableModel {
 
     private List<Ponto> pontos = new ArrayList<>();
-    private String[] colunas = {"Professor", "Hora", "Tipo Registro"};
+    private String[] colunas = {"Colaborador(a)", "Hora", "Tipo Registro"};
     SimpleDateFormat formatarHora = new SimpleDateFormat("HH:mm:ss");
 
     public PontoTableModelRegistro(List<Ponto> ponto) {
