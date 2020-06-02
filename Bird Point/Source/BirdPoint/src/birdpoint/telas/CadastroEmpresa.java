@@ -356,7 +356,7 @@ public class CadastroEmpresa extends javax.swing.JDialog {
         getContentPane().add(jLabel13);
         jLabel13.setBounds(150, 190, 60, 17);
 
-        jlCadProfessores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/cadProfessor.png"))); // NOI18N
+        jlCadProfessores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/cadGenerico.png"))); // NOI18N
         jlCadProfessores.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         getContentPane().add(jlCadProfessores);
         jlCadProfessores.setBounds(0, 0, 600, 420);

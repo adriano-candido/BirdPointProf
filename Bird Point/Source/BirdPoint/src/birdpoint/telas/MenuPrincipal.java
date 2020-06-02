@@ -150,7 +150,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuCadastros.add(jMenuItem4);
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
-        jMenuItem5.setText("Empresas");
+        jMenuItem5.setText("Empresa");
         jMenuItem5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
