@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -40,10 +41,7 @@ public abstract class GenericDAO<T> {
             JOptionPane.showMessageDialog(null, "Não foi possível executar essa operação" + entity.getClass()
                     + ". Erro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
-        } finally {
-            getSessao().close();
-
-        }
+        } 
         return true;
     }
 
@@ -57,10 +55,7 @@ public abstract class GenericDAO<T> {
         } catch (HibernateException e) {
             System.out.println("Erro ao se conectar com o banco de dados! Reconectando...");
             return false;
-        } finally {
-            getSessao().close();
-
-        }
+        } 
         return true;
     }
 
@@ -75,9 +70,6 @@ public abstract class GenericDAO<T> {
             JOptionPane.showMessageDialog(null, "Não foi possível executar essa operação" + entity.getClass()
                     + ". Erro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
-        } finally {
-            getSessao().close();
-
         }
         return true;
     }
@@ -92,9 +84,6 @@ public abstract class GenericDAO<T> {
             JOptionPane.showMessageDialog(null, "Não foi possível executar essa operação" + entity.getClass()
                     + ". Erro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
-        } finally {
-            getSessao().close();
-
         }
         return true;
     }
@@ -105,7 +94,6 @@ public abstract class GenericDAO<T> {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             lista = this.getSessao().createCriteria(classe).list();
-            //sessao.close();
         } catch (Throwable e) {
             if (getTransacao().isActive()) {
                 getTransacao().rollback();
@@ -128,8 +116,6 @@ public abstract class GenericDAO<T> {
         } catch (HibernateException e) {
             JOptionPane.showMessageDialog(null, "Não foi possível executar essa operação"
                     + ". Erro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            sessao.close();
         }
         return null;
     }
@@ -140,7 +126,6 @@ public abstract class GenericDAO<T> {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             lista = this.getSessao().createCriteria(classe).add(Restrictions.ilike(campo, valor, MatchMode.ANYWHERE)).list();
-            sessao.close();
         } catch (Throwable e) {
             if (getTransacao().isActive()) {
                 getTransacao().rollback();
@@ -158,14 +143,26 @@ public abstract class GenericDAO<T> {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             lista = this.getSessao().createCriteria(classe).add(Restrictions.ilike(campo, valor, MatchMode.ANYWHERE)).list();
-            sessao.close();
         } catch (Throwable e) {
 
         }
         return lista;
     }
 
-    public List<T> checkExistsPontoFuncionario(String campo1, String valor1, String campo2, int valor2, String campo3, String valor3) {
+    public List<T> checkExistsPontoFuncionario(String campo1, String valor1, String campo2, int valor2) {
+        List<T> lista = null;
+        try {
+            this.setSessao(HibernateUtil.getSessionFactory().openSession());
+            setTransacao(getSessao().beginTransaction());
+            lista = this.getSessao().createCriteria(classe).add(Restrictions.eq(campo1, valor1))
+                    .add(Restrictions.eq(campo2, valor2)).list();
+        } catch (Throwable e) {
+
+        }
+        return lista;
+    }
+    
+    public List<T> checkExistsPontoFuncionarioEntradaAutomatica(String campo1, String valor1, String campo2, int valor2, String campo3, Time valor3) {
         List<T> lista = null;
         try {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
@@ -173,7 +170,6 @@ public abstract class GenericDAO<T> {
             lista = this.getSessao().createCriteria(classe).add(Restrictions.eq(campo1, valor1))
                     .add(Restrictions.eq(campo2, valor2))
                     .add(Restrictions.eq(campo3, valor3)).list();
-            sessao.close();
         } catch (Throwable e) {
 
         }
@@ -186,7 +182,6 @@ public abstract class GenericDAO<T> {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             lista = this.getSessao().createCriteria(classe).add(Restrictions.eq(campo, valor)).list();
-            sessao.close();
         } catch (Throwable e) {
             if (getTransacao().isActive()) {
                 getTransacao().rollback();
@@ -204,7 +199,6 @@ public abstract class GenericDAO<T> {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             objeto = (T) this.getSessao().createCriteria(classe).add(Restrictions.eq(campo, valor)).uniqueResult();
-            sessao.close();
         } catch (Throwable e) {
             if (getTransacao().isActive()) {
                 getTransacao().rollback();
@@ -222,7 +216,6 @@ public abstract class GenericDAO<T> {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             objeto = (T) this.getSessao().createCriteria(classe).add(Restrictions.eq(campo, valor)).uniqueResult();
-            sessao.close();
         } catch (Throwable e) {
             if (getTransacao().isActive()) {
                 getTransacao().rollback();
@@ -244,7 +237,6 @@ public abstract class GenericDAO<T> {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             objeto = (T) this.getSessao().createCriteria(classe).add(Restrictions.eq(campo, valor)).add(Restrictions.eq(campo2, valor2)).uniqueResult();
-            sessao.close();
         } catch (Throwable e) {
             if (getTransacao().isActive()) {
                 getTransacao().rollback();

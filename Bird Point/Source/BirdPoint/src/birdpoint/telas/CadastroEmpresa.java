@@ -113,6 +113,7 @@ public class CadastroEmpresa extends javax.swing.JDialog {
         jLObrigatorioCpf = new javax.swing.JLabel();
         btFoto = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jlCadProfessores = new javax.swing.JLabel();
 
         selecionarFoto.setMaximumSize(new java.awt.Dimension(580, 245));
@@ -140,10 +141,10 @@ public class CadastroEmpresa extends javax.swing.JDialog {
         getContentPane().add(jLObrigatorioNome1);
         jLObrigatorioNome1.setBounds(560, 120, 20, 30);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setText("Nome Fantasia.:");
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel8.setText("Cadastro de Empresa");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(150, 130, 120, 20);
+        jLabel8.setBounds(200, 20, 320, 40);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Nome.:");
@@ -157,7 +158,7 @@ public class CadastroEmpresa extends javax.swing.JDialog {
             }
         });
         getContentPane().add(tfEmail);
-        tfEmail.setBounds(210, 190, 220, 23);
+        tfEmail.setBounds(210, 190, 170, 23);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("Telefone:");
@@ -167,30 +168,30 @@ public class CadastroEmpresa extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Rua.:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(50, 260, 40, 20);
+        jLabel4.setBounds(150, 220, 40, 20);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Bairro.:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(30, 290, 60, 20);
+        jLabel5.setBounds(390, 220, 60, 20);
 
         tfRua.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         getContentPane().add(tfRua);
-        tfRua.setBounds(100, 260, 320, 23);
+        tfRua.setBounds(190, 220, 130, 23);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Número.:");
+        jLabel6.setText("N.:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(430, 260, 70, 20);
+        jLabel6.setBounds(330, 220, 20, 20);
 
         tfBairro.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         getContentPane().add(tfBairro);
-        tfBairro.setBounds(100, 290, 320, 23);
+        tfBairro.setBounds(450, 220, 110, 23);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Cidade.:");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(150, 220, 60, 19);
+        jLabel7.setBounds(390, 190, 60, 19);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("CNPJ.:");
@@ -199,7 +200,7 @@ public class CadastroEmpresa extends javax.swing.JDialog {
 
         tfNumero.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         getContentPane().add(tfNumero);
-        tfNumero.setBounds(500, 260, 60, 23);
+        tfNumero.setBounds(350, 220, 30, 23);
 
         tfCidade.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         tfCidade.addActionListener(new java.awt.event.ActionListener() {
@@ -208,7 +209,7 @@ public class CadastroEmpresa extends javax.swing.JDialog {
             }
         });
         getContentPane().add(tfCidade);
-        tfCidade.setBounds(210, 220, 220, 23);
+        tfCidade.setBounds(450, 190, 110, 23);
 
         btVoltar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/voltar.png"))); // NOI18N
@@ -355,6 +356,11 @@ public class CadastroEmpresa extends javax.swing.JDialog {
         jLabel13.setText("E-mail.:");
         getContentPane().add(jLabel13);
         jLabel13.setBounds(150, 190, 60, 17);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setText("Nome Fantasia.:");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(150, 130, 120, 20);
 
         jlCadProfessores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/cadGenerico.png"))); // NOI18N
         jlCadProfessores.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -563,6 +569,7 @@ public class CadastroEmpresa extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jlCadProfessores;
     private javax.swing.JFileChooser selecionarFoto;
     private javax.swing.JTextField tfBairro;

@@ -25,15 +25,12 @@ public class MensagemPonto extends javax.swing.JDialog {
     String entradaOuSaida;
     String horasTrab;
 
-    String turno;
-
-    public MensagemPonto(java.awt.Frame parent, boolean modal, Funcionario funcionario, String entradaOuSaida, String turno, String horasTrab) {
+    public MensagemPonto(java.awt.Frame parent, boolean modal, Funcionario funcionario, String entradaOuSaida, String horasTrab) {
         super(parent, modal);
         initComponents();
         tfNomeFuncionario.setText(funcionario.getNomeFuncionario());
         this.funcionario = funcionario;
         this.entradaOuSaida = entradaOuSaida;
-        this.turno = turno;
         this.horasTrab = horasTrab;
         preencherTextoTela();
         carregarFoto();
@@ -62,12 +59,10 @@ public class MensagemPonto extends javax.swing.JDialog {
             tfMensagem1.setText("Seja Bem Vindo(a) .:");
             tfMensagem2.setText("Lhe desejamos um ótimo trabalho.");
             tfMensagem3.setText("Entrada");
-            tfTurno.setText("Turno.: " + turno);
         } else {
             tfMensagem1.setText("Até Logo .:");
             tfMensagem2.setText("Agradecemos sua presença.");
             tfMensagem3.setText("Saída");
-            tfTurno.setText("Turno.: " + turno);
             tfHorasTrab.setText("Horas Trab:. " + horasTrab);
         }
     }
@@ -108,7 +103,6 @@ public class MensagemPonto extends javax.swing.JDialog {
         tfTempo = new javax.swing.JLabel();
         tfHorasTrab = new javax.swing.JLabel();
         tfMensagem3 = new javax.swing.JLabel();
-        tfTurno = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
 
@@ -174,11 +168,6 @@ public class MensagemPonto extends javax.swing.JDialog {
         tfMensagem3.setText("Entrada");
         getContentPane().add(tfMensagem3);
         tfMensagem3.setBounds(450, 230, 60, 30);
-
-        tfTurno.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        tfTurno.setText("Turno.: ");
-        getContentPane().add(tfTurno);
-        tfTurno.setBounds(370, 30, 180, 20);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/tela de alerta 3.png"))); // NOI18N
         jLabel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -267,7 +256,7 @@ public class MensagemPonto extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MensagemPonto dialog = new MensagemPonto(new javax.swing.JFrame(), true, null, null, null, null);
+                MensagemPonto dialog = new MensagemPonto(new javax.swing.JFrame(), true, null, null, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -293,6 +282,5 @@ public class MensagemPonto extends javax.swing.JDialog {
     private javax.swing.JLabel tfMensagem3;
     private javax.swing.JLabel tfNomeFuncionario;
     private javax.swing.JLabel tfTempo;
-    private javax.swing.JLabel tfTurno;
     // End of variables declaration//GEN-END:variables
 }

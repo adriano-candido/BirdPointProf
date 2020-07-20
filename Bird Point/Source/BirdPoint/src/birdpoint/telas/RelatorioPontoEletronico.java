@@ -221,6 +221,9 @@ public class RelatorioPontoEletronico extends javax.swing.JDialog {
 
             parametros.put("texto", sql);
             parametros.put("novoTexto", novo);
+            
+            System.out.println(sql);
+            System.out.println(novo);
 
             Connection connection = new ConnectionFactory().getConnection();
 

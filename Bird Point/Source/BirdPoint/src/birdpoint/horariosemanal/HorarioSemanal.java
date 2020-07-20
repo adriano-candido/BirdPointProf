@@ -15,8 +15,6 @@ public class HorarioSemanal {
     
     private String nomeDiaSemana;
     
-    private String turno;
-    
     private Time horaEntrada;
     
     private Time horaSaida;
@@ -35,19 +33,6 @@ public class HorarioSemanal {
         this.nomeDiaSemana = nomeDiaSemana;
     }
 
-    /**
-     * @return the turno
-     */
-    public String getTurno() {
-        return turno;
-    }
-
-    /**
-     * @param turno the turno to set
-     */
-    public void setTurno(String turno) {
-        this.turno = turno;
-    }
 
     /**
      * @return the horaEntrada

@@ -8,6 +8,12 @@ package birdpoint.telas;
 import birdpoint.email.Email;
 import birdpoint.funcionario.Funcionario;
 import birdpoint.funcionario.FuncionarioDAO;
+import birdpoint.horariosemanal.Horario;
+import birdpoint.horariosemanal.HorarioDAO;
+import birdpoint.horariosemanal.HorarioSemanal;
+import birdpoint.horariosemanal.HorarioSemanalDAO;
+import birdpoint.parametrizacao.Parametrizacao;
+import birdpoint.parametrizacao.ParametrizacaoDAO;
 import birdpoint.registro.ponto.Ponto;
 import birdpoint.registro.ponto.PontoDAO;
 import birdpoint.registro.ponto.PontoTableModelRegistro;
@@ -16,6 +22,7 @@ import birdpoint.util.Relogio;
 import birdpoint.util.Util;
 import com.digitalpersona.onetouch.DPFPGlobal;
 import com.digitalpersona.onetouch.DPFPTemplate;
+import static java.lang.Thread.sleep;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,7 +49,7 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
     SimpleDateFormat formatarData = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat formatarHora = new SimpleDateFormat("HH");
     SimpleDateFormat formatarMinuto = new SimpleDateFormat("mm");
-    SimpleDateFormat formatarDiaSemana = new SimpleDateFormat("E");
+    SimpleDateFormat formatarDiaSemana = new SimpleDateFormat("EEEE");
     SimpleDateFormat formatarHoraCompleta = new SimpleDateFormat("HH:mm:ss");
     Date dataHoraSistema;
 
@@ -55,6 +62,14 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
 
     List<Ponto> listaPontoTabela = new ArrayList<>();
 
+    //Horários funcionário
+    ArrayList<HorarioSemanal> listaHorarioSemanal = new ArrayList<>();
+    HorarioSemanalDAO horarioSemanalDAO = new HorarioSemanalDAO();
+    Horario horario = new Horario();
+    HorarioDAO horarioDAO = new HorarioDAO();
+
+    Parametrizacao parametros;
+
     public CadastroPontoEletronico(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -63,6 +78,15 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         listaFuncionarioes = funcionarioDAO.listar();
         mostrarHora();
         atualizarTabela();
+        parametros = new ParametrizacaoDAO().listar().get(0);
+
+        if (parametros.isIgnorarTolerancia()) {
+            tfToleranciaEntrada.setText("");
+            tfToleranciaSaida.setText("");
+        } else {
+            tfToleranciaEntrada.setText("Tolerância Entrada.: " + parametros.getTempoToleranciaEntrada() + "min.");
+            tfToleranciaSaida.setText("Tolerância Saída.: " + parametros.getTempoToleranciaSaida() + "min.");
+        }
 
         new Thread() {
             @Override
@@ -75,24 +99,103 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
             }
         }.start();
 
+        //Gerar pontos automáticos
+        try {
+            if (parametros.isGerarHorarioAutomatico()) {
+                gerarPontosAutomaticos();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CadastroPontoEletronico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+//                if (!parametros.isIgnorarTolerancia()) {
+//                    try {
+//                        while (true) {
+//                            atualizarSaidasSemRegistro();
+//                            sleep(1000);
+//                        }
+//                    } catch (ParseException ex) {
+//                        Logger.getLogger(CadastroPontoEletronico.class.getName()).log(Level.SEVERE, null, ex);
+//                    } catch (InterruptedException ex) {
+//                        Logger.getLogger(CadastroPontoEletronico.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+            }
+        }.start();
+
+    }
+
+    public void exibirAvisos(String texto, String texto2) {
         new Thread() {
             @Override
             public void run() {
                 try {
-                    while (true) {
-//                            dataHoraSistema = new Date();
-//                            int hora = Integer.parseInt(formatarHora.format(dataHoraSistema));
-//                            if (hora == 23) {
-//                                System.exit(0);
-//                            }
-                        sleep(900000);
-                    }
-                } catch (InterruptedException ex) {
+                    tfAvisos.setText(texto);
+                    tfAvisos2.setText(texto2);
+                    sleep(5000);
+                    tfAvisos.setText("");
+                    tfAvisos2.setText("");
+                } catch (Exception ex) {
                     Logger.getLogger(CadastroPontoEletronico.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }.start();
 
+    }
+
+    //Este método atualiza todos os registros que passaram do tempo de saída permitido.
+    public void atualizarSaidasSemRegistro() throws ParseException {
+        Date horaSistema = new Date();
+        List<Ponto> listaPonto = pontoDAO.checkExists("dataPonto", formatarData.format(horaSistema));
+        //criada pq perde sobrescreve quando a tolerancia existe e é chamado o metodo verificarTolerancia
+        Date dataSaidaTemp;
+
+        for (Ponto pontoFor : listaPonto) {
+            if (pontoFor.getHoraSaidaPonto() == null && pontoFor.getHoraEntradaPonto() != null) {
+                //Pegando a hora de sair antes de atribuir os minutos para n perder a referência
+                dataSaidaTemp = formatarHoraCompleta.parse(formatarHoraCompleta.format(pontoFor.getHoraPrevistaSaida()));
+                //adicionando o tempo de tolerância a hora da saída
+                pontoFor.getHoraPrevistaSaida().setMinutes(pontoFor.getHoraPrevistaSaida().getMinutes() + parametros.getTempoToleranciaSaida());
+                if (Util.verificarTolerancia((pontoFor.getHoraPrevistaSaida()), new Date(), parametros.isIgnorarTolerancia())) {
+                    String hora = Util.diferencaEntreHoras(formatarHoraCompleta.format(dataSaidaTemp), formatarHoraCompleta.format(new Date()));
+                    Date horaSaida = formatarHoraCompleta.parse(hora);
+                    int teste = horaSaida.getMinutes();
+
+                    pontoFor.setHoraSaidaPonto(Time.valueOf("00:00:00"));
+                    Date horasTrabalhadas = formatarHoraCompleta.parse(Util.diferencaEntreHoras(String.valueOf(pontoFor.getHoraEntradaPonto()), formatarHoraCompleta.format(dataSaidaTemp)));
+                    pontoFor.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(horasTrabalhadas)));
+                    pontoFor.setHoraPrevistaSaida(Time.valueOf(formatarHoraCompleta.format(dataSaidaTemp)));
+                    pontoDAO.atualizar(pontoFor);
+                }
+            }
+        }
+    }
+
+    //Este método vai gerar os pontos diários (uma única vez por dia )
+    public void gerarPontosAutomaticos() throws ParseException {
+        Date horaSistema = new Date();
+        if (pontoDAO.checkExists("dataPonto", formatarData.format(horaSistema)).isEmpty()) {
+            List<Horario> horariosFuncionarios = horarioDAO.listar();
+            List<HorarioSemanal> horariosFuncionario;
+
+            for (Horario horarioFor : horariosFuncionarios) {
+                horariosFuncionario = horarioSemanalDAO.converterJsonEmLista(horarioFor.getListaHorario(), HorarioSemanal.class);
+                for (HorarioSemanal horarioFunc : horariosFuncionario) {
+                    if (horarioFunc.getNomeDiaSemana().equalsIgnoreCase(formatarDiaSemana.format(horaSistema))) {
+                        ponto = new Ponto();
+                        ponto.setDataPonto(formatarData.format(horaSistema));
+                        ponto.setDiaDaSemana(formatarDiaSemana.format(horaSistema));
+                        ponto.setFuncionario(horarioFor.getFuncionario());
+                        Date dataNova = formatarHoraCompleta.parse("00:00:00");
+                        ponto.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(dataNova)));
+                        pontoDAO.adicionar(ponto);
+                    }
+                }
+            }
+        }
     }
 
     public void atualizarTabela() {
@@ -101,60 +204,132 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         tbFuncionariosPonto.getColumnModel().getColumn(0).setPreferredWidth(300);
     }
 
-    // Este método apagará todas as duplicidades de ponto
-    public void apagarDuplicidadePonto(Funcionario funcionario) {
-        List<Ponto> listaPontosFuncionario = pontoDAO.checkExistsPontoFuncionario("dataPonto", formatarData.format(dataHoraSistema),
-                "funcionario.idFuncionario", funcionario.getIdFuncionario(),
-                "turnoPonto", carregarTurno());
-
-        for (int i = 1; i < listaPontosFuncionario.size(); i++) {
-            pontoDAO.remover(listaPontosFuncionario.get(i));
-        }
-
-    }
-
     // Este método registrará o ponto do funcionario
     public void registrarPresentePonto(Funcionario funcionario) throws ParseException {
-        apagarDuplicidadePonto(funcionario);
-        ponto = new Ponto();
-        List<Ponto> listaPontosFuncionario = pontoDAO.checkExistsPontoFuncionario("dataPonto", formatarData.format(dataHoraSistema),
-                "funcionario.idFuncionario", funcionario.getIdFuncionario(),
-                "turnoPonto", carregarTurno());
-        dataHoraSistema = new Date();
-        if (!listaPontosFuncionario.isEmpty()) {
-            ponto = listaPontosFuncionario.get(0);
-            if (ponto.getHoraEntradaPonto() == null) {
-                ponto.setHoraEntradaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
-                Date dataNova = formatarHoraCompleta.parse("00:00:00");
-                ponto.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(dataNova)));
-            } else if (ponto.getHoraEntradaPonto() != null && ponto.getHoraSaidaPonto() == null) {
-                ponto.setHoraSaidaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
-                Date dataNova = formatarHoraCompleta.parse(Util.diferencaEntreHoras(String.valueOf(ponto.getHoraEntradaPonto()), String.valueOf(ponto.getHoraSaidaPonto())));
-                ponto.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(dataNova)));
-            } else {
-                ponto.setHoraEntradaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
-                ponto.setHoraSaidaPonto(null);
-                Date dataNova = formatarHoraCompleta.parse("00:00:00");
-                ponto.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(dataNova)));
-            }
-            listaPontoTabela.add(0, ponto);
-            atualizarTabela();
-            pontoDAO.atualizar(ponto);
-            abrirTelaMensagemPonto(ponto);
+        if (!new ParametrizacaoDAO().listar().isEmpty()) {
+            if (!horarioDAO.checkExistseq("funcionario.idFuncionario", funcionario.getIdFuncionario()).isEmpty()) {
+                List<Ponto> listaPontosFuncionario;
+                dataHoraSistema = new Date();
 
+                horario = horarioDAO.checkExistseq("funcionario.idFuncionario", funcionario.getIdFuncionario()).get(0);
+                listaHorarioSemanal = (ArrayList) horarioSemanalDAO.converterJsonEmLista(horario.getListaHorario(), HorarioSemanal.class);
+
+                //esta variável verifica se o funcionário tem o dia atual no horário dele
+                boolean verificarDiaPonto = false;
+                //esta variável verifica se está registrando o ponto novamente
+                boolean registrarPontoNovo = true;
+                for (HorarioSemanal horarioFor : listaHorarioSemanal) {
+                    if (horarioFor.getNomeDiaSemana().equalsIgnoreCase(formatarDiaSemana.format(dataHoraSistema))) {
+
+                        //essa instrução ignora horários que já passaram do limite máximo ou não chegou no horário
+                        if (!parametros.isIgnorarTolerancia()) {
+                            //Verificando se o horário que tá percorrendo pode dar entrada no funcionário
+                            if (!Util.verificarTolerancia(formatarHoraCompleta.parse(formatarHoraCompleta.format(horarioFor.getHoraEntrada())), dataHoraSistema, false)) {
+                                continue;
+                            }
+                            Date horaSaidaMaxima = formatarHoraCompleta.parse(formatarHoraCompleta.format(horarioFor.getHoraSaida()));
+                            //adicionando o tempo de tolerância a hora da saída
+                            horaSaidaMaxima.setMinutes((horaSaidaMaxima.getMinutes() + 1) + parametros.getTempoToleranciaSaida());
+                            if (Util.verificarTolerancia(horaSaidaMaxima, dataHoraSistema, false)) {
+                                continue;
+                            }
+                        }
+
+                        listaPontosFuncionario = pontoDAO.checkExistsPontoFuncionario("dataPonto", formatarData.format(dataHoraSistema),
+                                "funcionario.idFuncionario", funcionario.getIdFuncionario());
+                        if (!listaPontosFuncionario.isEmpty()) {
+                            for (Ponto pontoCarregado : listaPontosFuncionario) {
+                                //Ignorar os pontos que já tem entrada e saída
+                                if (pontoCarregado.getHoraSaidaPonto() != null && pontoCarregado.getHoraEntradaPonto() != null) {
+                                    continue;
+                                }
+
+                                if (pontoCarregado.getHoraEntradaPonto() == null) {
+
+                                    //Hora com os minutos de tolerância
+                                    Date horaEntradaTemp = formatarHoraCompleta.parse(formatarHoraCompleta.format(horarioFor.getHoraEntrada()));
+                                    //adicionando o tempo de tolerância a hora da saída
+                                    horaEntradaTemp.setMinutes(horaEntradaTemp.getMinutes() + parametros.getTempoToleranciaEntrada() + 1);
+                                    if (Util.verificarTolerancia(dataHoraSistema, horaEntradaTemp, parametros.isIgnorarTolerancia())) {
+                                        pontoCarregado.setHoraEntradaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
+                                        pontoCarregado.setDataPontoCompleta(dataHoraSistema);
+                                        pontoCarregado.setHoraPrevistaSaida(horarioFor.getHoraSaida());
+                                        listaPontoTabela.add(0, pontoCarregado);
+                                        atualizarTabela();
+                                        pontoDAO.atualizar(pontoCarregado);
+                                        abrirTelaMensagemPonto(pontoCarregado);
+                                        registrarPontoNovo = false;
+                                        return;
+                                    } else {
+                                        //fazer instrução pra hora de entrar não ser mais null
+                                        //exibirAvisos("Você ultrapassou a tolerância.", "Não foi possível registrar sua entrada");
+                                        return;
+                                    }
+
+                                }
+                                if (pontoCarregado.getHoraEntradaPonto() != null && pontoCarregado.getHoraSaidaPonto() == null) {
+                                    if (Util.verificarTolerancia(horarioFor.getHoraSaida(), dataHoraSistema, parametros.isIgnorarTolerancia())) {
+                                        pontoCarregado.setHoraSaidaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
+                                        Date dataNova = formatarHoraCompleta.parse(Util.diferencaEntreHoras(String.valueOf(pontoCarregado.getHoraEntradaPonto()), String.valueOf(pontoCarregado.getHoraSaidaPonto())));
+                                        pontoCarregado.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(dataNova)));
+                                        registrarPontoNovo = false;
+                                        listaPontoTabela.add(0, pontoCarregado);
+                                        atualizarTabela();
+                                        pontoDAO.atualizar(pontoCarregado);
+                                        abrirTelaMensagemPonto(pontoCarregado);
+                                        return;
+                                    } else {
+                                        exibirAvisos("Não chegou o horário de você sair.", "Não foi possível registrar sua saída");
+                                        return;
+                                    }
+
+                                }
+
+                                listaPontoTabela.add(0, pontoCarregado);
+                                atualizarTabela();
+                                pontoDAO.atualizar(pontoCarregado);
+                                abrirTelaMensagemPonto(pontoCarregado);
+
+                            }
+                        }
+
+                        // SE NÃO TIVER PONTO REGISTRADO, SEMPRE ENTRA AQUI
+                        if (registrarPontoNovo && !parametros.isGerarHorarioAutomatico()) {
+                            //Hora com os minutos de tolerância
+                            Date horaEntradaTemp = formatarHoraCompleta.parse(formatarHoraCompleta.format(horarioFor.getHoraEntrada()));
+                            //adicionando o tempo de tolerância a hora da saída
+                            horaEntradaTemp.setMinutes(horaEntradaTemp.getMinutes() + parametros.getTempoToleranciaEntrada() + 1);
+                            if (Util.verificarTolerancia(dataHoraSistema, horaEntradaTemp, parametros.isIgnorarTolerancia())) {
+                                ponto = new Ponto();
+                                ponto.setDataPontoCompleta(dataHoraSistema);
+                                ponto.setDataPonto(formatarData.format(dataHoraSistema));
+                                ponto.setDiaDaSemana(formatarDiaSemana.format(dataHoraSistema));
+                                ponto.setHoraPrevistaSaida(horarioFor.getHoraSaida());
+                                ponto.setFuncionario(funcionario);
+                                Date dataNova = formatarHoraCompleta.parse("00:00:00");
+                                ponto.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(dataNova)));
+                                ponto.setHoraEntradaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
+                                listaPontoTabela.add(0, ponto);
+                                atualizarTabela();
+                                pontoDAO.adicionar(ponto);
+                                abrirTelaMensagemPonto(ponto);
+                                return;
+                            } else {
+                                exibirAvisos("Não chegou o horário de você entrar.", "Não foi possível registrar sua entrada");
+                                return;
+                            }
+                        }
+
+                    } else {
+                        //exibirAvisos("Não chegou o horário de você entrar ou não possui entrada p/ hoje!", "");
+                    }
+
+                }
+            } else {
+                exibirAvisos("Você não possui horário cadastrado!", "");
+            }
         } else {
-            ponto.setDataPontoCompleta(dataHoraSistema);
-            ponto.setDataPonto(formatarData.format(dataHoraSistema));
-            ponto.setDiaDaSemana(formatarDiaSemana.format(dataHoraSistema));
-            ponto.setFuncionario(funcionario);
-            ponto.setTurnoPonto(carregarTurno());
-            Date dataNova = formatarHoraCompleta.parse("00:00:00");
-            ponto.setQtdHorasTrabalhadas(Time.valueOf(formatarHoraCompleta.format(dataNova)));
-            ponto.setHoraEntradaPonto(Time.valueOf(formatarHoraCompleta.format(dataHoraSistema)));
-            listaPontoTabela.add(0, ponto);
-            atualizarTabela();
-            pontoDAO.adicionar(ponto);
-            abrirTelaMensagemPonto(ponto);
+            exibirAvisos("Dados da Parametrização não Cadastrados!", "Erro ao carregar parametrização.");
         }
 
     }
@@ -166,52 +341,7 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         } else {
             entradaOuSaida = "Saída";
         }
-        new MensagemPonto(null, true, ponto.getFuncionario(), entradaOuSaida, carregarTurno(), String.valueOf(ponto.getQtdHorasTrabalhadas())).setVisible(true);
-    }
-
-// Este método retorna o turno baseado no horário atual
-    public String carregarTurno() {
-        dataHoraSistema = new Date();
-        int hora = Integer.parseInt(formatarHora.format(dataHoraSistema));
-        int minuto = Integer.parseInt(formatarMinuto.format(dataHoraSistema));
-        if ((hora >= 5 && (hora <= 12)) || ((hora == 12) && minuto <= 59)) {
-            return "Manhã";
-        } else if ((hora >= 13 && hora < 18) || ((hora == 17) && minuto <= 59)) {
-            return "Tarde";
-        } else {
-            return "Noite";
-        }
-    }
-
-    public void cadastrarPontoDiario() {
-        dataHoraSistema = new Date();
-        for (Funcionario funcManha : listaFuncionarioesManha) {
-            ponto.setDataPonto(formatarData.format(dataHoraSistema));
-            ponto.setFuncionario(funcManha);
-            ponto.setTurnoPonto("Manhã");
-            ponto.setDataPontoCompleta(dataHoraSistema);
-            ponto.setDiaDaSemana(formatarDiaSemana.format(dataHoraSistema));
-            pontoDAO.adicionar(ponto);
-            ponto = new Ponto();
-        }
-        for (Funcionario funcTarde : listaFuncionarioesTarde) {
-            ponto.setDataPonto(formatarData.format(dataHoraSistema));
-            ponto.setFuncionario(funcTarde);
-            ponto.setTurnoPonto("Tarde");
-            ponto.setDataPontoCompleta(dataHoraSistema);
-            ponto.setDiaDaSemana(formatarDiaSemana.format(dataHoraSistema));
-            pontoDAO.adicionar(ponto);
-            ponto = new Ponto();
-        }
-        for (Funcionario funcNoite : listaFuncionarioesNoite) {
-            ponto.setDataPonto(formatarData.format(dataHoraSistema));
-            ponto.setFuncionario(funcNoite);
-            ponto.setTurnoPonto("Noite");
-            ponto.setDataPontoCompleta(dataHoraSistema);
-            ponto.setDiaDaSemana(formatarDiaSemana.format(dataHoraSistema));
-            pontoDAO.adicionar(ponto);
-            ponto = new Ponto();
-        }
+        new MensagemPonto(null, true, ponto.getFuncionario(), entradaOuSaida, String.valueOf(ponto.getQtdHorasTrabalhadas())).setVisible(true);
     }
 
     public Funcionario carregarFuncionario(int id) {
@@ -231,7 +361,7 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
     }
 
     private void telaMensagemPonto(Funcionario funcionario, String verificarEntradaOuSaida) {
-        new MensagemPonto(null, rootPaneCheckingEnabled, funcionario, verificarEntradaOuSaida, carregarTurno(), "").setVisible(true);
+        new MensagemPonto(null, rootPaneCheckingEnabled, funcionario, verificarEntradaOuSaida, "").setVisible(true);
     }
 
     // Este método compara a digital inserida no leitor
@@ -240,10 +370,10 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         funcionario = digital.verificarSeCadastrado(null, listaFuncionarioes);
         if (funcionario != null) {
             registrarPresentePonto(funcionario);
-            jlFuncionarioNaoLocalizado.setText("");
+            tfAvisos.setText("");
 
         } else {
-            jlFuncionarioNaoLocalizado.setText("Funcionario não localizado!");
+            exibirAvisos("", "Funcionário não localizado!");
         }
         compararDigital();
     }
@@ -263,11 +393,11 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         btVoltar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbFuncionariosPonto = new javax.swing.JTable();
-        jlFuncionarioNaoLocalizado = new javax.swing.JLabel();
+        tfAvisos = new javax.swing.JLabel();
         tfHora = new javax.swing.JLabel();
-        tfHora1 = new javax.swing.JLabel();
-        tfHora2 = new javax.swing.JLabel();
-        tfHora3 = new javax.swing.JLabel();
+        tfAvisos2 = new javax.swing.JLabel();
+        tfToleranciaSaida = new javax.swing.JLabel();
+        tfToleranciaEntrada = new javax.swing.JLabel();
         jlCadProfessores = new javax.swing.JLabel();
 
         selecionarFoto.setMaximumSize(new java.awt.Dimension(580, 245));
@@ -313,29 +443,29 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(20, 120, 560, 230);
 
-        jlFuncionarioNaoLocalizado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        getContentPane().add(jlFuncionarioNaoLocalizado);
-        jlFuncionarioNaoLocalizado.setBounds(210, 100, 190, 20);
+        tfAvisos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        getContentPane().add(tfAvisos);
+        tfAvisos.setBounds(20, 80, 560, 20);
 
-        tfHora.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        tfHora.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         tfHora.setText("Hora.:");
         getContentPane().add(tfHora);
-        tfHora.setBounds(400, 100, 180, 19);
+        tfHora.setBounds(30, 60, 200, 20);
 
-        tfHora1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        tfHora1.setText("Noite: 18:00 ás 23:00");
-        getContentPane().add(tfHora1);
-        tfHora1.setBounds(20, 100, 210, 19);
+        tfAvisos2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tfAvisos2.setForeground(new java.awt.Color(255, 51, 51));
+        getContentPane().add(tfAvisos2);
+        tfAvisos2.setBounds(20, 100, 560, 20);
 
-        tfHora2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        tfHora2.setText("Manhã: 5:00 ás 12:59");
-        getContentPane().add(tfHora2);
-        tfHora2.setBounds(20, 60, 190, 19);
+        tfToleranciaSaida.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        tfToleranciaSaida.setText("Tolerância Saida.:");
+        getContentPane().add(tfToleranciaSaida);
+        tfToleranciaSaida.setBounds(410, 60, 170, 20);
 
-        tfHora3.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        tfHora3.setText("Tarde: 13:00 ás 17:59");
-        getContentPane().add(tfHora3);
-        tfHora3.setBounds(20, 80, 200, 19);
+        tfToleranciaEntrada.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        tfToleranciaEntrada.setText("Tolerância Entrada.:");
+        getContentPane().add(tfToleranciaEntrada);
+        tfToleranciaEntrada.setBounds(230, 60, 180, 20);
 
         jlCadProfessores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/CadastroDePonto.png"))); // NOI18N
         jlCadProfessores.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -410,12 +540,12 @@ public class CadastroPontoEletronico extends javax.swing.JDialog {
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlCadProfessores;
-    private javax.swing.JLabel jlFuncionarioNaoLocalizado;
     private javax.swing.JFileChooser selecionarFoto;
     private javax.swing.JTable tbFuncionariosPonto;
+    private javax.swing.JLabel tfAvisos;
+    private javax.swing.JLabel tfAvisos2;
     private javax.swing.JLabel tfHora;
-    private javax.swing.JLabel tfHora1;
-    private javax.swing.JLabel tfHora2;
-    private javax.swing.JLabel tfHora3;
+    private javax.swing.JLabel tfToleranciaEntrada;
+    private javax.swing.JLabel tfToleranciaSaida;
     // End of variables declaration//GEN-END:variables
 }

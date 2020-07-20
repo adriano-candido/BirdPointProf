@@ -38,6 +38,9 @@ public class Ponto {
     private Time horaSaidaPonto;
     
     @Column
+    private Time horaPrevistaSaida;
+    
+    @Column
     private Time qtdHorasTrabalhadas;
     
     @Column
@@ -58,6 +61,16 @@ public class Ponto {
 
     @OneToOne
     private Funcionario funcionario;
+
+    public Time getHoraPrevistaSaida() {
+        return horaPrevistaSaida;
+    }
+
+    public void setHoraPrevistaSaida(Time horaPrevistaSaida) {
+        this.horaPrevistaSaida = horaPrevistaSaida;
+    }
+    
+    
 
     /**
      * @return the idPonto

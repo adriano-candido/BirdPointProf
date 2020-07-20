@@ -380,6 +380,24 @@ public class Util {
         }
     }
 
+    //Se esse método retornar positivo, significa que a primeira hora é menor que a segunda
+    public static boolean verificarTolerancia(Date hora1, Date hora2, boolean ignorarTolerancia) throws ParseException {
+        if (ignorarTolerancia) {
+            return true;
+        }
+
+        SimpleDateFormat formatar = new SimpleDateFormat("HH:mm:ss");
+
+        String diferencaHora = diferencaEntreHoras(formatar.format(hora1), formatar.format(hora2));
+
+        if (diferencaHora.contains("-")) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
     public static String diferencaEntreHoras(String horaInicial, String horaFinal) throws ParseException {
         SimpleDateFormat formatarHoraCompleta = new SimpleDateFormat("HH:mm:ss");
 
@@ -394,10 +412,10 @@ public class Util {
         long diferencaMin = diferenca / (60 * 1000);    //DIFERENCA EM MINUTOS   
         long diferencaHoras = diferenca / (60 * 60 * 1000);    // DIFERENCA EM HORAS
 
-        diferencaSeg = diferencaSeg%60;
-        diferencaMin = diferencaMin%60;
-        return retornaNumeroFormatado(diferencaHoras) + ":" + retornaNumeroFormatado(diferencaMin)+":"+
-                retornaNumeroFormatado(diferencaSeg);
+        diferencaSeg = diferencaSeg % 60;
+        diferencaMin = diferencaMin % 60;
+        return retornaNumeroFormatado(diferencaHoras) + ":" + retornaNumeroFormatado(diferencaMin) + ":"
+                + retornaNumeroFormatado(diferencaSeg);
     }
 
     public static String retornaNumeroFormatado(long numero) {

@@ -13,9 +13,9 @@ import birdpoint.usuario.UsuarioDAO;
  * @author Adriano Lima
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-
+    
     Usuario usuario = new Usuario();
-
+    
     public MenuPrincipal(Usuario usuario) {
         initComponents();
         this.usuario = usuario;
@@ -24,9 +24,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         if (!usuario.getTipoDeAcessoUsuario().equalsIgnoreCase("administrador")) {
             permissao();
         }
-
+        
     }
-
+    
     public void permissao() {
         if (!usuario.getTipoDeAcessoUsuario().equalsIgnoreCase("administrador")) {
             subUsuario.setVisible(false);
@@ -54,6 +54,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         subUsuario1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         subUsuario = new javax.swing.JMenuItem();
         menuBiometria = new javax.swing.JMenu();
         subRegistrarPonto = new javax.swing.JMenuItem();
@@ -158,6 +159,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         menuCadastros.add(jMenuItem5);
+
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
+        jMenuItem6.setText("Parâmetros");
+        jMenuItem6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(jMenuItem6);
 
         subUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/adicionar10.png"))); // NOI18N
         subUsuario.setText("Usuário");
@@ -289,6 +300,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cadastroEmpresa.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        CadastroParametros parametros = new CadastroParametros(this, rootPaneCheckingEnabled);
+        parametros.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -331,6 +347,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JLabel jlHome;
     private javax.swing.JLabel jlNome2;
     private javax.swing.JLabel jlNome3;

@@ -13,7 +13,6 @@ import birdpoint.horariosemanal.HorarioDAO;
 import birdpoint.horariosemanal.HorarioSemanal;
 import birdpoint.horariosemanal.HorarioSemanalDAO;
 import birdpoint.horariosemanal.HorarioSemanalTableModel;
-import birdpoint.horariosemanal.HorarioTableModel;
 import birdpoint.util.Util;
 import com.google.gson.Gson;
 import java.sql.Time;
@@ -22,8 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -47,7 +44,6 @@ public class CadastroHorario extends javax.swing.JDialog {
 
     public CadastroHorario() {
         initComponents();
-        btExcluir.setEnabled(false);
         getRootPane().setDefaultButton(btSalvar);
         atualizarTabelaHorarios();
     }
@@ -61,17 +57,13 @@ public class CadastroHorario extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jcTurno = new javax.swing.JComboBox();
         jlNomeUsuario4 = new javax.swing.JLabel();
         tfHorarioSaida = new javax.swing.JFormattedTextField();
         jcDiaSemana = new javax.swing.JComboBox();
-        jlNomeUsuario7 = new javax.swing.JLabel();
         jlNomeUsuario6 = new javax.swing.JLabel();
         jlNomeUsuario5 = new javax.swing.JLabel();
-        btPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbHorario = new javax.swing.JTable();
-        btExcluir = new javax.swing.JButton();
         btLimpar = new javax.swing.JButton();
         tfHorarioEntrada = new javax.swing.JFormattedTextField();
         btSalvar = new javax.swing.JButton();
@@ -92,16 +84,10 @@ public class CadastroHorario extends javax.swing.JDialog {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jcTurno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jcTurno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-----", "Manhã", "Tarde", "Noite" }));
-        jcTurno.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
-        getContentPane().add(jcTurno);
-        jcTurno.setBounds(420, 180, 160, 29);
-
         jlNomeUsuario4.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jlNomeUsuario4.setText("Entrada.:");
         getContentPane().add(jlNomeUsuario4);
-        jlNomeUsuario4.setBounds(420, 200, 70, 30);
+        jlNomeUsuario4.setBounds(420, 180, 70, 30);
 
         tfHorarioSaida.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         try {
@@ -114,43 +100,23 @@ public class CadastroHorario extends javax.swing.JDialog {
         tfHorarioSaida.setName(""); // NOI18N
         tfHorarioSaida.setPreferredSize(new java.awt.Dimension(2, 19));
         getContentPane().add(tfHorarioSaida);
-        tfHorarioSaida.setBounds(510, 230, 70, 20);
+        tfHorarioSaida.setBounds(510, 210, 70, 20);
 
         jcDiaSemana.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jcDiaSemana.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-----", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo" }));
+        jcDiaSemana.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-----", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo" }));
         jcDiaSemana.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         getContentPane().add(jcDiaSemana);
-        jcDiaSemana.setBounds(420, 130, 160, 29);
-
-        jlNomeUsuario7.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        jlNomeUsuario7.setText("Turno.:");
-        getContentPane().add(jlNomeUsuario7);
-        jlNomeUsuario7.setBounds(420, 150, 60, 30);
+        jcDiaSemana.setBounds(420, 130, 160, 23);
 
         jlNomeUsuario6.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jlNomeUsuario6.setText("Saída.:");
         getContentPane().add(jlNomeUsuario6);
-        jlNomeUsuario6.setBounds(510, 200, 60, 30);
+        jlNomeUsuario6.setBounds(510, 180, 60, 30);
 
         jlNomeUsuario5.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jlNomeUsuario5.setText("Horários.:");
         getContentPane().add(jlNomeUsuario5);
         jlNomeUsuario5.setBounds(170, 100, 130, 30);
-
-        btPesquisar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/pesquisar.png"))); // NOI18N
-        btPesquisar.setText("Pesquisar");
-        btPesquisar.setContentAreaFilled(false);
-        btPesquisar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btPesquisar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btPesquisar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPesquisarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btPesquisar);
-        btPesquisar.setBounds(240, 340, 100, 73);
 
         tbHorario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -168,21 +134,6 @@ public class CadastroHorario extends javax.swing.JDialog {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(30, 130, 380, 200);
 
-        btExcluir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/excluir.png"))); // NOI18N
-        btExcluir.setText("Excluir");
-        btExcluir.setContentAreaFilled(false);
-        btExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btExcluirActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btExcluir);
-        btExcluir.setBounds(350, 340, 80, 70);
-
         btLimpar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/limpar.png"))); // NOI18N
         btLimpar.setText("Limpar");
@@ -196,7 +147,7 @@ public class CadastroHorario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btLimpar);
-        btLimpar.setBounds(150, 340, 80, 70);
+        btLimpar.setBounds(220, 340, 80, 70);
 
         tfHorarioEntrada.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 1, true));
         try {
@@ -209,7 +160,7 @@ public class CadastroHorario extends javax.swing.JDialog {
         tfHorarioEntrada.setName(""); // NOI18N
         tfHorarioEntrada.setPreferredSize(new java.awt.Dimension(2, 19));
         getContentPane().add(tfHorarioEntrada);
-        tfHorarioEntrada.setBounds(420, 230, 60, 20);
+        tfHorarioEntrada.setBounds(420, 210, 60, 20);
 
         btSalvar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/Salvar.png"))); // NOI18N
@@ -224,7 +175,7 @@ public class CadastroHorario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btSalvar);
-        btSalvar.setBounds(480, 340, 80, 70);
+        btSalvar.setBounds(420, 340, 80, 70);
 
         tfFuncionario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tfFuncionario.setForeground(new java.awt.Color(51, 0, 51));
@@ -312,7 +263,7 @@ public class CadastroHorario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btCurso114);
-        btCurso114.setBounds(560, 70, 20, 32);
+        btCurso114.setBounds(560, 70, 20, 29);
 
         btVoltar2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btVoltar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birdpoint/imagens/voltar.png"))); // NOI18N
@@ -344,34 +295,9 @@ public class CadastroHorario extends javax.swing.JDialog {
         tbHorario.setModel(itm);
     }
 
-    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        List<Horario> lista;
-        lista = horarioDAO.listar();
-        HorarioTableModel itm = new HorarioTableModel(lista);
-        Object objetoRetorno = PesquisaGenerica.exibeTela(itm, "Horário");
-        if (objetoRetorno != null) {
-            horario = horarioDAO.consultarObjetoId("idHorario", objetoRetorno);
-            listaHorarioSemanal = (ArrayList) horarioSemanalDAO.converterJsonEmLista(horario.getListaHorario(), HorarioSemanal.class);
-            tfFuncionario.setText(horario.getFuncionario().getNomeFuncionario());
-            funcionario = horario.getFuncionario();
-            atualizarTabelaHorarios();
-            btExcluir.setEnabled(true);
-        }
-
-    }//GEN-LAST:event_btPesquisarActionPerformed
-
-
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        if (horario.getIdHorario() != 0) {
-            horarioDAO.remover(horario);
-        }
-        btLimparActionPerformed(null);
-
-    }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
         Util.limparCamposGenerico(this);
-        btExcluir.setEnabled(false);
         horario = new Horario();
         funcionario = new Funcionario();
         listaHorarioSemanal = new ArrayList<>();
@@ -410,10 +336,13 @@ public class CadastroHorario extends javax.swing.JDialog {
                 horario.setFuncionario(funcionario);
                 tfFuncionario.setText(funcionario.getNomeFuncionario());
             } else {
-                JOptionPane.showMessageDialog(this, "O funcionário.: " + funcionario.getNomeFuncionario()
-                        + " Já possui horário cadastrado! \n\n"
-                        + "Caso pretenda alterar o horário, pesquise pelo funcionário e realize as modificações.");
+                horario = horarioDAO.checkExistseq("funcionario.idFuncionario", funcionario.getIdFuncionario()).get(0);
+                listaHorarioSemanal = (ArrayList) horarioSemanalDAO.converterJsonEmLista(horario.getListaHorario(), HorarioSemanal.class);
+                tfFuncionario.setText(horario.getFuncionario().getNomeFuncionario());
+                funcionario = horario.getFuncionario();
+                atualizarTabelaHorarios();
             }
+
         }
     }//GEN-LAST:event_btCurso18ActionPerformed
 
@@ -424,14 +353,12 @@ public class CadastroHorario extends javax.swing.JDialog {
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
         if (!(jcDiaSemana.getSelectedItem() == "-----"
-                || jcTurno.getSelectedItem() == "-----"
                 || tfHorarioEntrada.getText().length() != 5
                 || tfHorarioSaida.getText().length() != 5)) {
             HorarioSemanal horarioSemanal = new HorarioSemanal();
             try {
-                Date horarioEntrada = formatador.parse(tfHorarioEntrada.getText());
-                Date horarioSaida = formatador.parse(tfHorarioSaida.getText());
-                horarioSemanal.setTurno(String.valueOf(jcTurno.getSelectedItem()));
+                Date horarioEntrada = formatador.parse(tfHorarioEntrada.getText()+":00");
+                Date horarioSaida = formatador.parse(tfHorarioSaida.getText()+":00");
                 horarioSemanal.setNomeDiaSemana(String.valueOf(jcDiaSemana.getSelectedItem()));
                 horarioSemanal.setHoraEntrada(new Time(horarioEntrada.getTime()));
                 horarioSemanal.setHoraSaida(new Time(horarioSaida.getTime()));
@@ -440,7 +367,6 @@ public class CadastroHorario extends javax.swing.JDialog {
                 tfHorarioEntrada.setText("");
                 tfHorarioSaida.setText("");
                 jcDiaSemana.setSelectedItem("-----");
-                jcTurno.setSelectedItem("-----");
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Hora Inválida!");
             }
@@ -491,69 +417,7 @@ public class CadastroHorario extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(CadastroHorario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -574,9 +438,7 @@ public class CadastroHorario extends javax.swing.JDialog {
     private javax.swing.JButton btAdd;
     private javax.swing.JButton btCurso114;
     private javax.swing.JButton btCurso18;
-    private javax.swing.JButton btExcluir;
     private javax.swing.JButton btLimpar;
-    private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btRemover;
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btVoltar2;
@@ -584,12 +446,10 @@ public class CadastroHorario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox jcDiaSemana;
-    private javax.swing.JComboBox jcTurno;
     private javax.swing.JLabel jlNomeUsuario3;
     private javax.swing.JLabel jlNomeUsuario4;
     private javax.swing.JLabel jlNomeUsuario5;
     private javax.swing.JLabel jlNomeUsuario6;
-    private javax.swing.JLabel jlNomeUsuario7;
     private javax.swing.JLabel jlNomeUsuario8;
     private javax.swing.JTable tbHorario;
     private javax.swing.JTextField tfFuncionario;

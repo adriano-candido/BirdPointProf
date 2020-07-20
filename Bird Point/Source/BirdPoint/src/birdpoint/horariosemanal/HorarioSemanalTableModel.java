@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class HorarioSemanalTableModel extends AbstractTableModel {
 
     private List<HorarioSemanal> horario = new ArrayList<>();
-    private String[] colunas = {"Dia", "Turno", "Horário Entrada", "Horário Saída"};
+    private String[] colunas = {"Dia", "Horário Entrada", "Horário Saída"};
 
     public HorarioSemanalTableModel(List<HorarioSemanal> horario) {
         this.horario = horario;
@@ -39,10 +39,8 @@ public class HorarioSemanalTableModel extends AbstractTableModel {
             case 0:
                 return horarios.getNomeDiaSemana();
             case 1:
-                return horarios.getTurno();
-            case 2:
                 return horarios.getHoraEntrada();
-            case 3:
+            case 2:
                 return horarios.getHoraSaida();
 
         }
@@ -58,8 +56,6 @@ public class HorarioSemanalTableModel extends AbstractTableModel {
                 return colunas[1];
             case 2:
                 return colunas[2];
-            case 3:
-                return colunas[3];
         }
         return null;
     }
