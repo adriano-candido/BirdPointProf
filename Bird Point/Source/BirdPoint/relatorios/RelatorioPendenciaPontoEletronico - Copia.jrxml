@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<subDataset name="dataset1" uuid="0967c58a-bb40-496d-9474-f29fc4086914"/>
 	<subDataset name="dataset2" uuid="03709086-e9d3-4543-8c83-5250e170f64b"/>
@@ -58,13 +58,6 @@ WHERE
 	</variable>
 	<variable name="somaSegundos" class="java.lang.Integer" resetType="Group" resetGroup="idLote" calculation="Sum">
 		<variableExpression><![CDATA[$F{qtdHorasTrabalhadas}.getSeconds()]]></variableExpression>
-	</variable>
-	<variable name="horasFinal" class="java.lang.String">
-		<variableExpression><![CDATA[($V{somaHorasTrab}  + (($V{somaMinutosTrab} + ($V{somaSegundos} / 60)) / 60 )) <= 9 ? "0"+(int) ($V{somaHorasTrab}  + $V{somaMinutosTrab} / 60 ): (int) ($V{somaHorasTrab}  + $V{somaMinutosTrab} / 60 )]]></variableExpression>
-	</variable>
-	<variable name="MinutosFinal" class="java.lang.String">
-		<variableExpression><![CDATA[($V{somaMinutosTrab}%60 + ($V{somaSegundos}/60)) <= 9 ? "0"+(int)($V{somaMinutosTrab}%60 + ($V{somaSegundos}/60)
-): (int) ($V{somaMinutosTrab}%60 + ($V{somaSegundos}/60))]]></variableExpression>
 	</variable>
 	<group name="idLote">
 		<groupExpression><![CDATA[$F{nomeFuncionario}]]></groupExpression>
@@ -143,8 +136,8 @@ WHERE
 					<textElement textAlignment="Left">
 						<font size="16" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{horasFinal}+":"+$V{MinutosFinal}+":"+$V{somaSegundos}%60
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($V{somaHorasTrab} >=0 && $V{somaHorasTrab} <=9 ?   "0"+$V{somaHorasTrab} : $V{somaHorasTrab}) +":"+($V{somaMinutosTrab} >=0 && $V{somaMinutosTrab} <=9 ?   "0"+$V{somaMinutosTrab} : $V{somaMinutosTrab}) 
++":"+($V{somaSegundos} >=0 && $V{somaSegundos} <=9 ?   "0"+$V{somaSegundos} : $V{somaSegundos})]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement mode="Opaque" x="104" y="43" width="156" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="a4bc796b-25e8-49d9-88fa-03ab87b50845"/>
