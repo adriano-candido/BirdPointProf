@@ -125,7 +125,7 @@ WHERE
 					<text><![CDATA[Justificado]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="230" y="15" width="324" height="26" forecolor="#006699" uuid="548dbbe7-6fc7-4438-b762-63cc720bcfd2"/>
+					<reportElement x="240" y="15" width="314" height="26" forecolor="#006699" uuid="548dbbe7-6fc7-4438-b762-63cc720bcfd2"/>
 					<textElement>
 						<font size="16" isBold="true"/>
 					</textElement>
@@ -143,8 +143,7 @@ WHERE
 					<textElement textAlignment="Left">
 						<font size="16" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{horasFinal}+":"+$V{MinutosFinal}+":"+$V{somaSegundos}%60
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{horasFinal}+":"+$V{MinutosFinal}+":"+$V{somaSegundos}%60]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement mode="Opaque" x="104" y="43" width="156" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="a4bc796b-25e8-49d9-88fa-03ab87b50845"/>
